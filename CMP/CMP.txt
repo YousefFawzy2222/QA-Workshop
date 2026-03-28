@@ -1,2 +1,1 @@
-Branches--> 2 branches (main, development)
-Folder structure --> folrder for each testware (PMP, CMP, Requiremnts, Change cycle, Risks)
+The CMP: https://docs.google.com/document/d/1uxq7_7wBHPkDZpfhYr-X1qj4v-RnhQxf43UXoxh8UG4/edit?usp=sharing
