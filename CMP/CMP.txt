@@ -1,2 +1,2 @@
-Branches--> 3 branches (main, development, testing)
+Branches--> 2 branches (main, development)
 Folder structure --> folrder for each testware (PMP, CMP, Requiremnts, Change cycle, Risks)
