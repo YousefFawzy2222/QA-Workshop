@@ -69,7 +69,13 @@ form.addEventListener('submit', async (e) => {
 
     if (data.success) {
       // Successful login → redirect to home (or admin panel)
-      window.location.href = data.isAdmin ? '/admin.html' : '/home.html';
+      if (data.isAdmin) {
+        // Store email so admin.js can send X-User-Email on every admin API call
+        sessionStorage.setItem('adminEmail', emailInput.value.trim());
+        window.location.href = '/admin.html';
+      } else {
+        window.location.href = '/home.html';
+      }
     } else {
       // LG-FR-02 / LG-FR-03 / LG-FR-04: Show the generic error message
       showLoginError(data.error || 'Check email and password again');

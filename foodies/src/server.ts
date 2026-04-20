@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import authRoutes from './routes/auth.routes';
+import restaurantRoutes from './routes/restaurant.routes';
+import itemRoutes from './routes/item.routes';
 
 const app = express();
 const PORT = 3000;
@@ -17,6 +19,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ─── API Routes ───────────────────────────────────────────────────────────────
 app.use('/api/auth', authRoutes);
+app.use('/api/admin/restaurants', restaurantRoutes);
+app.use('/api/admin/restaurants/:restaurantId/items', itemRoutes);
 
 // ─── Root redirect ────────────────────────────────────────────────────────────
 app.get('/', (_req, res) => {
@@ -27,7 +31,8 @@ app.get('/', (_req, res) => {
 app.listen(PORT, () => {
   console.log(`\n🍔  Foodies server running at http://localhost:${PORT}\n`);
   console.log(`   → Signup : http://localhost:${PORT}/signup.html`);
-  console.log(`   → Login  : http://localhost:${PORT}/login.html\n`);
+  console.log(`   → Login  : http://localhost:${PORT}/login.html`);
+  console.log(`   → Admin  : http://localhost:${PORT}/admin.html  (admin@foodies.com / Admin@123)\n`);
 });
 
 export default app;
