@@ -1,0 +1,637 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6">
+  <diagram name="Page-1" id="RZU8RnOuRU_e_Ru0UQU8">
+    <mxGraphModel dx="1281" dy="634" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="RnaB6GudcWTuxFSafpte-1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=light-dark(#647687,#647687);strokeColor=#647687;" value="Start" vertex="1">
+          <mxGeometry height="30" width="80" x="193" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="Clear cart and session data" vertex="1">
+          <mxGeometry height="60" width="120" x="173" y="248" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="Redirect user to login page" vertex="1">
+          <mxGeometry height="60" width="120" x="173" y="349" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-5" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=light-dark(#647687,#647687);strokeColor=#647687;" value="End" vertex="1">
+          <mxGeometry height="30" width="80" x="193" y="449" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-6" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="232.65999999999997" y="126" as="sourcePoint" />
+            <mxPoint x="232.65999999999997" y="156" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-7" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="232.71000000000004" y="217" as="sourcePoint" />
+            <mxPoint x="232.71000000000004" y="247" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-9" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RnaB6GudcWTuxFSafpte-5" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="232.71000000000004" y="409" as="sourcePoint" />
+            <mxPoint x="232.71000000000004" y="439" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-10" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="232.71000000000004" y="308" as="sourcePoint" />
+            <mxPoint x="232.99999999999977" y="348" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-16" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=18;" value="&lt;font&gt;logout()&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="85" x="190.5" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="Invalidate session token" vertex="1">
+          <mxGeometry height="60" width="120" x="173" y="156" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-18" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=light-dark(#647687,#647687);strokeColor=#647687;" value="Start" vertex="1">
+          <mxGeometry height="30" width="80" x="685" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-19" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#BA0000;strokeColor=#BA0000;" value="Field empty ?" vertex="1">
+          <mxGeometry height="89" width="120" x="665" y="248" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="&quot;Password can&#39;t be empty&quot; error message" vertex="1">
+          <mxGeometry height="60" width="120" x="500" y="262.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-22" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=light-dark(#647687,#647687);strokeColor=#647687;" value="End" vertex="1">
+          <mxGeometry height="30" width="80" x="685" y="629" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-23" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="724.66" y="126" as="sourcePoint" />
+            <mxPoint x="724.66" y="156" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-24" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="724.71" y="217" as="sourcePoint" />
+            <mxPoint x="724.71" y="247" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-26" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="724.58" y="487" as="sourcePoint" />
+            <mxPoint x="724.87" y="528" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-27" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="724.58" y="337" as="sourcePoint" />
+            <mxPoint x="724.8699999999998" y="377" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-29" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="559.58" y="262.5" as="sourcePoint" />
+            <mxPoint x="560" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-30" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="560" y="150" as="sourcePoint" />
+            <mxPoint x="720" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-31" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;Yes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="630" y="273" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-32" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;No&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="730" y="349" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-33" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=18;" value="&lt;font&gt;validatePassword()&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="85" x="682.5" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-34" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="On field change" vertex="1">
+          <mxGeometry height="60" width="120" x="665" y="156" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-37" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="665" y="293" as="sourcePoint" />
+            <mxPoint x="622.2899999999997" y="292" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-38" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#BA0000;strokeColor=#BA0000;" value="All 5 constraints met ?" vertex="1">
+          <mxGeometry height="107" width="127.5" x="661.25" y="379" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-39" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="&quot;Invalid password&quot; error message" vertex="1">
+          <mxGeometry height="60" width="120" x="497" y="402.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-40" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="440" y="430" as="sourcePoint" />
+            <mxPoint x="440" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-41" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="440" y="140" as="sourcePoint" />
+            <mxPoint x="720" y="140.00000000000003" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-42" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;Yes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="730" y="498" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-43" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;No&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="630" y="415" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-44" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="661" y="433" as="sourcePoint" />
+            <mxPoint x="618.2899999999997" y="432" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-46" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="Password Accepted" vertex="1">
+          <mxGeometry height="60" width="120" x="665" y="528" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-49" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="724.58" y="588" as="sourcePoint" />
+            <mxPoint x="724.87" y="629" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-57" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="440" y="430" as="sourcePoint" />
+            <mxPoint x="496" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-58" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=light-dark(#647687,#647687);strokeColor=#647687;" value="Start" vertex="1">
+          <mxGeometry height="30" width="80" x="1248" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-59" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#BA0000;strokeColor=#BA0000;" value="Field empty ?" vertex="1">
+          <mxGeometry height="89" width="120" x="1228" y="248" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-60" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="&quot;Email can&#39;t be empty&quot; error message" vertex="1">
+          <mxGeometry height="60" width="120" x="1063" y="262.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-62" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=light-dark(#647687,#647687);strokeColor=#647687;" value="End" vertex="1">
+          <mxGeometry height="30" width="80" x="1248" y="609" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-63" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1287.6599999999999" y="126" as="sourcePoint" />
+            <mxPoint x="1287.6599999999999" y="156" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-64" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1287.71" y="217" as="sourcePoint" />
+            <mxPoint x="1287.71" y="247" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-65" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1287.58" y="467" as="sourcePoint" />
+            <mxPoint x="1287.87" y="508" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-66" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1287.58" y="337" as="sourcePoint" />
+            <mxPoint x="1287.87" y="377" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-67" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1122.58" y="262.5" as="sourcePoint" />
+            <mxPoint x="1123" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-68" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1123" y="150" as="sourcePoint" />
+            <mxPoint x="1283" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-69" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;Yes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1193" y="273" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-70" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;No&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1293" y="349" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-71" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=18;" value="&lt;font&gt;validateEmail()&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="85" x="1245.5" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-72" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="On field change" vertex="1">
+          <mxGeometry height="60" width="120" x="1228" y="156" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-73" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1228" y="293" as="sourcePoint" />
+            <mxPoint x="1185.2899999999997" y="292" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-74" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#BA0000;strokeColor=#BA0000;" value="Has @ + Domain ?" vertex="1">
+          <mxGeometry height="89" width="120" x="1228" y="378" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-75" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="&quot;Invalid email&quot; error message" vertex="1">
+          <mxGeometry height="60" width="120" x="1063" y="388.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-76" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1003" y="420" as="sourcePoint" />
+            <mxPoint x="1003" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-77" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1003" y="140" as="sourcePoint" />
+            <mxPoint x="1283" y="140.00000000000003" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-78" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;Yes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1293" y="478" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-79" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;No&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1193" y="408" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-80" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1228" y="423" as="sourcePoint" />
+            <mxPoint x="1185.2899999999997" y="422" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-82" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="Email Accepted" vertex="1">
+          <mxGeometry height="60" width="120" x="1228" y="508" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-83" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1287.58" y="568" as="sourcePoint" />
+            <mxPoint x="1287.87" y="609" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-84" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1003" y="420.08000000000004" as="sourcePoint" />
+            <mxPoint x="1063" y="420.08000000000004" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-85" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=light-dark(#647687,#647687);strokeColor=#647687;" value="Start" vertex="1">
+          <mxGeometry height="30" width="80" x="1914" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-86" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#BA0000;strokeColor=#BA0000;" value="Email registered ?" vertex="1">
+          <mxGeometry height="89" width="120" x="1894" y="248" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-87" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="&quot;Check email and password again&quot; error message" vertex="1">
+          <mxGeometry height="60" width="120" x="1729" y="262.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-88" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=light-dark(#647687,#647687);strokeColor=#647687;" value="End" vertex="1">
+          <mxGeometry height="30" width="80" x="1914" y="892" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-89" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1953.6599999999999" y="126" as="sourcePoint" />
+            <mxPoint x="1953.6599999999999" y="156" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-90" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1953.71" y="217" as="sourcePoint" />
+            <mxPoint x="1953.71" y="247" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-91" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1953.58" y="484" as="sourcePoint" />
+            <mxPoint x="1953.87" y="525" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-92" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1953.58" y="337" as="sourcePoint" />
+            <mxPoint x="1953.87" y="377" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-93" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1788.58" y="262.5" as="sourcePoint" />
+            <mxPoint x="1789" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-94" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1789" y="150" as="sourcePoint" />
+            <mxPoint x="1949" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-95" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;Yes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1959" y="349" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-96" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;No&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1859" y="273" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-97" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=18;" value="&lt;font&gt;login()&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="85" x="1911.5" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-98" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="User enters email and password + click submit" vertex="1">
+          <mxGeometry height="60" width="120" x="1894" y="156" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-99" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1894" y="293" as="sourcePoint" />
+            <mxPoint x="1851.2899999999997" y="292" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-100" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#BA0000;strokeColor=#BA0000;" value="Registered email + wrongly typed?" vertex="1">
+          <mxGeometry height="107" width="136" x="1886" y="378" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-101" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="&quot;Check email and password again&quot; error message" vertex="1">
+          <mxGeometry height="60" width="120" x="1721" y="396.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-102" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1670" y="420" as="sourcePoint" />
+            <mxPoint x="1669" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-103" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1669" y="140" as="sourcePoint" />
+            <mxPoint x="1949" y="140.00000000000003" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-104" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;No&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1959" y="494.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-105" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;Yes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1859" y="408" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-106" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1886" y="431" as="sourcePoint" />
+            <mxPoint x="1843.2899999999997" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-107" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="User is logged in and redirected to home page" vertex="1">
+          <mxGeometry height="60" width="120" x="1894" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-108" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1953.58" y="850" as="sourcePoint" />
+            <mxPoint x="1953.87" y="891" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-109" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1670" y="420" as="sourcePoint" />
+            <mxPoint x="1720" y="420.08000000000004" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-111" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#BA0000;strokeColor=#BA0000;" value="Correct password?" vertex="1">
+          <mxGeometry height="89" width="120" x="1894" y="526" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-112" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1894" y="570" as="sourcePoint" />
+            <mxPoint x="1851.2899999999997" y="569" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-113" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;No&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1874" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-114" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;Yes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1974" y="629" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-115" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1953.5" y="615" as="sourcePoint" />
+            <mxPoint x="1953.79" y="656" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-116" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="&quot;Check email and password again&quot; error message" vertex="1">
+          <mxGeometry height="60" width="120" x="1729" y="540.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-117" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1640" y="570" as="sourcePoint" />
+            <mxPoint x="1729" y="570.08" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-118" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1641" y="571.5" as="sourcePoint" />
+            <mxPoint x="1640" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-119" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1640" y="130" as="sourcePoint" />
+            <mxPoint x="1950" y="130.00000000000003" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-120" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=light-dark(#647687,#647687);strokeColor=#647687;" value="Start" vertex="1">
+          <mxGeometry height="30" width="80" x="2624" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-121" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#BA0000;strokeColor=#BA0000;" value="Email valid ?" vertex="1">
+          <mxGeometry height="89" width="120" x="2604" y="248" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-122" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="&quot;Check email and password again&quot; error message" vertex="1">
+          <mxGeometry height="60" width="120" x="2439" y="262.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-123" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=light-dark(#647687,#647687);strokeColor=#647687;" value="End" vertex="1">
+          <mxGeometry height="30" width="80" x="2624" y="960" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-124" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2663.66" y="126" as="sourcePoint" />
+            <mxPoint x="2663.66" y="156" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-125" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2663.71" y="217" as="sourcePoint" />
+            <mxPoint x="2663.71" y="247" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-126" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2663.58" y="484" as="sourcePoint" />
+            <mxPoint x="2663.87" y="525" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-127" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2663.58" y="337" as="sourcePoint" />
+            <mxPoint x="2663.87" y="377" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-128" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2498.58" y="262.5" as="sourcePoint" />
+            <mxPoint x="2499" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-129" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2499" y="150" as="sourcePoint" />
+            <mxPoint x="2659" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-130" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;Yes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="2669" y="349" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-131" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;No&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="2569" y="273" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-132" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=18;" value="&lt;font&gt;register()&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="85" x="2621.5" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-133" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="User fills signup form" vertex="1">
+          <mxGeometry height="60" width="120" x="2604" y="156" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-134" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2604" y="293" as="sourcePoint" />
+            <mxPoint x="2561.29" y="292" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-135" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#BA0000;strokeColor=#BA0000;" value="Password valid ?" vertex="1">
+          <mxGeometry height="107" width="136" x="2596" y="378" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-136" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="&quot;Check email and password again&quot; error message" vertex="1">
+          <mxGeometry height="60" width="120" x="2431" y="396.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-137" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2380" y="420" as="sourcePoint" />
+            <mxPoint x="2379" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-138" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2379" y="140" as="sourcePoint" />
+            <mxPoint x="2659" y="140.00000000000003" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-139" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;No&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="2569" y="413.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-140" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;Yes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="2670" y="494.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-141" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2596" y="431" as="sourcePoint" />
+            <mxPoint x="2553.29" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-142" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="Account Created" vertex="1">
+          <mxGeometry height="60" width="120" x="2604" y="657" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-143" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2663.58" y="918" as="sourcePoint" />
+            <mxPoint x="2663.87" y="959" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-144" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2380" y="420" as="sourcePoint" />
+            <mxPoint x="2430" y="420.08000000000004" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-145" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#BA0000;strokeColor=#BA0000;" value="Unique email ?" vertex="1">
+          <mxGeometry height="89" width="120" x="2604" y="526" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-146" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2604" y="570" as="sourcePoint" />
+            <mxPoint x="2561.29" y="569" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-147" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;No&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="2584" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-148" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;Yes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="2684" y="629" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-149" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2663.5" y="615" as="sourcePoint" />
+            <mxPoint x="2663.79" y="656" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-150" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="&quot;Check email and password again&quot; error message" vertex="1">
+          <mxGeometry height="60" width="120" x="2439" y="540.5" as="geometry" />
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-151" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2350" y="570" as="sourcePoint" />
+            <mxPoint x="2439" y="570.08" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-152" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2351" y="571.5" as="sourcePoint" />
+            <mxPoint x="2350" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-153" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2350" y="130" as="sourcePoint" />
+            <mxPoint x="2660" y="130.00000000000003" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-154" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2663.41" y="717" as="sourcePoint" />
+            <mxPoint x="2663.7" y="758" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RnaB6GudcWTuxFSafpte-157" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="User Redirected to login page" vertex="1">
+          <mxGeometry height="60" width="120" x="2604" y="858" as="geometry" />
+        </mxCell>
+        <mxCell id="Q-FU36pwuskwhhcW3po6-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="(8-64 char - uppercase - lowercase - num - special char)" vertex="1">
+          <mxGeometry height="30" width="122.5" x="800" y="418.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Q-FU36pwuskwhhcW3po6-2" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="2663.5" y="817" as="sourcePoint" />
+            <mxPoint x="2663.79" y="858" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q-FU36pwuskwhhcW3po6-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="isAdmin = false&lt;div&gt;(default)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="2604" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="Q-FU36pwuskwhhcW3po6-4" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#BA0000;strokeColor=#BA0000;" value="isAdmin?" vertex="1">
+          <mxGeometry height="89" width="120" x="1894" y="657" as="geometry" />
+        </mxCell>
+        <mxCell id="Q-FU36pwuskwhhcW3po6-5" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1953.5" y="746" as="sourcePoint" />
+            <mxPoint x="1953.79" y="787" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q-FU36pwuskwhhcW3po6-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;Yes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1866" y="682" as="geometry" />
+        </mxCell>
+        <mxCell id="Q-FU36pwuskwhhcW3po6-7" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 6px;&quot;&gt;No&lt;/span&gt;" vertex="1">
+          <mxGeometry height="10" width="20" x="1970" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="Q-FU36pwuskwhhcW3po6-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#33A02B;strokeColor=#33A02B;" value="User is logged in and redirected to admin panel" vertex="1">
+          <mxGeometry height="60" width="120" x="1720" y="671.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Q-FU36pwuskwhhcW3po6-10" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1894" y="702" as="sourcePoint" />
+            <mxPoint x="1840" y="701" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q-FU36pwuskwhhcW3po6-11" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1781" y="910" as="sourcePoint" />
+            <mxPoint x="1780.5" y="731.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q-FU36pwuskwhhcW3po6-12" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1780" y="907" as="sourcePoint" />
+            <mxPoint x="1913" y="907" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
