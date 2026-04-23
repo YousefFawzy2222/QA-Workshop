@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foodies - Saved Addresses</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/saved-addresses.css">
+</head>
+<body class="dark-theme">
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar glass-panel">
+      <div class="sidebar-header">
+        <h2>Foodies</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="/home.html" class="nav-item">🏠 Home</a>
+        <a href="/saved-addresses.html" class="nav-item active">📍 Saved Addresses</a>
+        <a href="/login.html" class="nav-item" id="logout-btn">🚪 Logout</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="page-header">
+        <h1>Saved Addresses</h1>
+        <button id="add-address-btn" class="btn btn-primary">+ Add New Address</button>
+      </header>
+
+      <div id="addresses-container" class="addresses-grid">
+        <!-- Addresses will be injected here -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Address Modal -->
+  <div id="address-modal" class="modal hidden">
+    <div class="modal-content glass-panel">
+      <span id="close-modal" class="close-btn">&times;</span>
+      <h2 id="modal-title">Add New Address</h2>
+      <form id="address-form" class="auth-form">
+        <input type="hidden" id="address-id">
+        
+        <div class="input-group">
+          <label for="phone">Phone Number (11 digits)*</label>
+          <input type="text" id="phone" required pattern="\d{11}" title="Exactly 11 digits" placeholder="01234567890">
+        </div>
+        
+        <div class="form-row">
+          <div class="input-group">
+            <label for="building">Building*</label>
+            <input type="text" id="building" required placeholder="Bldg #">
+          </div>
+          <div class="input-group">
+            <label for="apartment">Apartment</label>
+            <input type="text" id="apartment" placeholder="Apt #">
+          </div>
+          <div class="input-group">
+            <label for="floor">Floor</label>
+            <input type="text" id="floor" placeholder="Floor #">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="street">Street*</label>
+          <input type="text" id="street" required placeholder="Main St">
+        </div>
+
+        <div class="input-group">
+          <label for="landmark">Landmark</label>
+          <input type="text" id="landmark" placeholder="Near the park">
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="isPrimary">
+          <label for="isPrimary">Set as primary address</label>
+        </div>
+
+        <div id="form-error" class="error-box hidden"></div>
+
+        <button type="submit" class="btn btn-primary full-width">Save Address</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/saved-addresses.js"></script>
+</body>
+</html>
