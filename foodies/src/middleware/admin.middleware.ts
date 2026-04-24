@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import { UserStore } from '../models/user.model';
 
-export function requireAdmin(req: Request, res: Response, next: NextFunction): void {
+export async function requireAdmin(req: Request, res: Response, next: NextFunction): Promise<void> {
   const email = req.headers['x-user-email'];
 
   if (typeof email !== 'string' || !email) {
@@ -15,7 +15,7 @@ export function requireAdmin(req: Request, res: Response, next: NextFunction): v
     return;
   }
 
-  const user = UserStore.findByEmail(email);
+  const user = await UserStore.findByEmail(email);
 
   if (!user) {
     res.status(401).json({ success: false, error: 'User not found' });

@@ -1,7 +1,13 @@
-import { randomUUID } from 'crypto';
+// ─── Address (AddressOfUser) Model — SQL Server ─────────────────────────────
+// Class Diagram: AddressOfUser
+//   - phoneNumber, buildingName, aptNumber, floorNumber, street, nearbyLandmark
+//   + validateUserInfo(), saveAddress(), validatePhoneNumber()
+
+import { getPool } from '../database';
+import * as sql from 'mssql';
 
 export interface Address {
-  id: string;
+  id: number;
   userEmail: string;
   phone: string;
   building: string;
@@ -12,68 +18,110 @@ export interface Address {
   isPrimary: boolean;
 }
 
-const addresses: Address[] = [];
+function rowToAddress(row: any): Address {
+  return {
+    id: row.id,
+    userEmail: row.user_email,
+    phone: row.phone_number,
+    building: row.building_name,
+    apartment: row.apartment || '',
+    floor: row.floor_number || '',
+    street: row.street,
+    landmark: row.nearby_landmark || '',
+    isPrimary: false,
+  };
+}
 
 export const AddressStore = {
-  add(address: Omit<Address, 'id'>): Address {
-    const newAddress = { ...address, id: randomUUID() };
-    
-    // If it's the first address for the user, make it primary automatically
-    const userAddresses = this.findByUser(address.userEmail);
-    if (userAddresses.length === 0) {
-      newAddress.isPrimary = true;
-    }
+  async add(address: Omit<Address, 'id'>): Promise<Address> {
+    const pool = await getPool();
 
-    // If setting as primary, unset others
-    if (newAddress.isPrimary) {
-      this.unsetPrimary(address.userEmail);
-    }
-    
-    addresses.push(newAddress);
-    return newAddress;
+    const result = await pool
+      .request()
+      .input('user_email', sql.NVarChar, address.userEmail)
+      .input('phone_number', sql.NVarChar, address.phone)
+      .input('building_name', sql.NVarChar, address.building)
+      .input('apartment', sql.NVarChar, address.apartment || '')
+      .input('floor_number', sql.NVarChar, address.floor || '')
+      .input('street', sql.NVarChar, address.street)
+      .input('nearby_landmark', sql.NVarChar, address.landmark || '')
+      .query(`
+        INSERT INTO [Address] (user_email, phone_number, building_name, apartment, floor_number, street, nearby_landmark)
+        OUTPUT INSERTED.*
+        VALUES (@user_email, @phone_number, @building_name, @apartment, @floor_number, @street, @nearby_landmark)
+      `);
+    return rowToAddress(result.recordset[0]);
   },
 
-  update(id: string, updates: Partial<Omit<Address, 'id' | 'userEmail'>>): Address | undefined {
-    const index = addresses.findIndex(a => a.id === id);
-    if (index === -1) return undefined;
+  async update(id: number | string, updates: Partial<Omit<Address, 'id' | 'userEmail'>>): Promise<Address | undefined> {
+    const existing = await this.findById(id);
+    if (!existing) return undefined;
 
-    if (updates.isPrimary) {
-      this.unsetPrimary(addresses[index].userEmail);
-    }
-
-    addresses[index] = { ...addresses[index], ...updates };
-    return addresses[index];
+    const merged = { ...existing, ...updates };
+    const pool = await getPool();
+    await pool
+      .request()
+      .input('id', sql.Int, Number(id))
+      .input('phone_number', sql.NVarChar, merged.phone)
+      .input('building_name', sql.NVarChar, merged.building)
+      .input('apartment', sql.NVarChar, merged.apartment)
+      .input('floor_number', sql.NVarChar, merged.floor)
+      .input('street', sql.NVarChar, merged.street)
+      .input('nearby_landmark', sql.NVarChar, merged.landmark)
+      .query(`
+        UPDATE [Address]
+        SET phone_number = @phone_number, building_name = @building_name, apartment = @apartment,
+            floor_number = @floor_number, street = @street, nearby_landmark = @nearby_landmark
+        WHERE id = @id
+      `);
+    return this.findById(id);
   },
 
-  delete(id: string): boolean {
-    const index = addresses.findIndex(a => a.id === id);
-    if (index === -1) return false;
-    addresses.splice(index, 1);
+  async delete(id: number | string): Promise<boolean> {
+    const pool = await getPool();
+    const result = await pool
+      .request()
+      .input('id', sql.Int, Number(id))
+      .query('DELETE FROM [Address] WHERE id = @id');
+    return (result.rowsAffected[0] ?? 0) > 0;
+  },
+
+  async findByUser(userEmail: string): Promise<Address[]> {
+    const pool = await getPool();
+    const result = await pool
+      .request()
+      .input('user_email', sql.NVarChar, userEmail)
+      .query('SELECT * FROM [Address] WHERE user_email = @user_email');
+    return result.recordset.map(rowToAddress);
+  },
+
+  async findById(id: number | string): Promise<Address | undefined> {
+    const pool = await getPool();
+    const result = await pool
+      .request()
+      .input('id', sql.Int, Number(id))
+      .query('SELECT * FROM [Address] WHERE id = @id');
+    if (result.recordset.length === 0) return undefined;
+    return rowToAddress(result.recordset[0]);
+  },
+
+  /** setPrimary is a no-op since the DB has no is_primary column */
+  async setPrimary(_id: number | string, _userEmail: string): Promise<boolean> {
     return true;
   },
 
-  findByUser(userEmail: string): Address[] {
-    return addresses.filter(a => a.userEmail === userEmail);
+  /** Class Diagram: validatePhoneNumber() */
+  validatePhoneNumber(phone: string): boolean {
+    return /^\d{11}$/.test(phone);
   },
 
-  findById(id: string): Address | undefined {
-    return addresses.find(a => a.id === id);
+  /** Class Diagram: validateUserInfo() */
+  validateUserInfo(data: { phone?: string; building?: string; street?: string }): string | null {
+    if (!data.phone || !this.validatePhoneNumber(data.phone)) {
+      return 'Phone must be exactly 11 digits';
+    }
+    if (!data.building) return 'Building is required';
+    if (!data.street) return 'Street is required';
+    return null;
   },
-
-  unsetPrimary(userEmail: string) {
-    addresses.forEach(a => {
-      if (a.userEmail === userEmail) {
-        a.isPrimary = false;
-      }
-    });
-  },
-  
-  setPrimary(id: string, userEmail: string): boolean {
-    const address = this.findById(id);
-    if (!address || address.userEmail !== userEmail) return false;
-    
-    this.unsetPrimary(userEmail);
-    address.isPrimary = true;
-    return true;
-  }
 };

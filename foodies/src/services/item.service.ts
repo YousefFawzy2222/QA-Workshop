@@ -10,21 +10,7 @@ export interface ItemResult {
 }
 
 // ─── addItem (admin: Module 3.1) ─────────────────────────────────────────────
-/**
- * Class Diagram: Admin.addRestaurant → Item.addItem()
- * Flowchart (Admin): isAdmin check done by middleware.
- *
- * Validation:
- *  1. Restaurant must exist
- *  2. validateItem() — all required fields
- *  3. Duplicate item name within restaurant
- *  4. validateItemOnDiscount() — only when isOnDiscount = true
- *
- * SRS ADM-FR-02: closing-hour enforcement is done client-side (Add button
- * disabled). Server validates fields unconditionally so closed-restaurant
- * items can still be added by the admin.
- */
-export function addItem(data: {
+export async function addItem(data: {
   restaurantId: string;
   itemName: string;
   itemCost: number;
@@ -34,11 +20,11 @@ export function addItem(data: {
   isOnDiscount: boolean;
   discountPercentage: number;
   description: string;
-}): ItemResult {
+}): Promise<ItemResult> {
   // Restaurant must exist
-  const restaurant = RestaurantStore.findById(data.restaurantId);
+  const restaurant = await RestaurantStore.findById(data.restaurantId);
   if (!restaurant) {
-    return { success: false, error: 'Restaurant not found' };
+    return { success: false, error: `Restaurant with ID ${data.restaurantId} not found` };
   }
 
   // validateItem()
@@ -53,7 +39,7 @@ export function addItem(data: {
   if (fieldError) return { success: false, error: fieldError };
 
   // Duplicate name check within the same restaurant
-  const existing = ItemStore.findByNameInRestaurant(data.restaurantId, data.itemName);
+  const existing = await ItemStore.findByNameInRestaurant(data.restaurantId, data.itemName);
   if (existing) {
     return { success: false, error: 'An item with this name already exists in this restaurant' };
   }
@@ -64,8 +50,8 @@ export function addItem(data: {
     if (discountError) return { success: false, error: discountError };
   }
 
-  const item = ItemStore.add({
-    restaurantId:      data.restaurantId,
+  const item = await ItemStore.add({
+    restaurantId:      Number(data.restaurantId),
     itemName:          data.itemName.trim(),
     itemCost:          data.itemCost,
     itemQuantity:      data.itemQuantity,
@@ -80,11 +66,11 @@ export function addItem(data: {
 }
 
 // ─── updateItem ───────────────────────────────────────────────────────────────
-export function updateItem(
+export async function updateItem(
   id: string,
   data: Partial<Omit<Item, 'id' | 'restaurantId'>>
-): ItemResult {
-  const existing = ItemStore.findById(id);
+): Promise<ItemResult> {
+  const existing = await ItemStore.findById(id);
   if (!existing) return { success: false, error: 'Item not found' };
 
   // Re-validate merged data
@@ -94,8 +80,8 @@ export function updateItem(
 
   // Duplicate name check (allow same name for same item)
   if (data.itemName) {
-    const duplicate = ItemStore.findByNameInRestaurant(existing.restaurantId, data.itemName);
-    if (duplicate && duplicate.id !== id) {
+    const duplicate = await ItemStore.findByNameInRestaurant(existing.restaurantId, data.itemName);
+    if (duplicate && duplicate.id !== Number(id)) {
       return { success: false, error: 'An item with this name already exists in this restaurant' };
     }
   }
@@ -106,7 +92,7 @@ export function updateItem(
     if (discountError) return { success: false, error: discountError };
   }
 
-  const item = ItemStore.update(id, {
+  const item = await ItemStore.update(id, {
     ...data,
     itemName:    data.itemName?.trim(),
     itemSize:    data.itemSize?.trim(),
@@ -118,22 +104,23 @@ export function updateItem(
 }
 
 // ─── deleteItem ───────────────────────────────────────────────────────────────
-export function deleteItem(id: string): ItemResult {
-  const existing = ItemStore.findById(id);
+export async function deleteItem(id: string): Promise<ItemResult> {
+  const existing = await ItemStore.findById(id);
   if (!existing) return { success: false, error: 'Item not found' };
-  ItemStore.remove(id);
+  await ItemStore.remove(id);
   return { success: true };
 }
 
 // ─── getItemsByRestaurant ─────────────────────────────────────────────────────
-export function getItemsByRestaurant(restaurantId: string): ItemResult {
-  const restaurant = RestaurantStore.findById(restaurantId);
+export async function getItemsByRestaurant(restaurantId: string): Promise<ItemResult> {
+  const restaurant = await RestaurantStore.findById(restaurantId);
   if (!restaurant) return { success: false, error: 'Restaurant not found' };
 
-  const items = ItemStore.findByRestaurant(restaurantId).map((item) => ({
+  const items = await ItemStore.findByRestaurant(restaurantId);
+  const enriched = items.map((item) => ({
     ...item,
     discountedPrice: ItemStore.getDiscountedPrice(item),
   }));
 
-  return { success: true, items: items as Item[] };
+  return { success: true, items: enriched as Item[] };
 }

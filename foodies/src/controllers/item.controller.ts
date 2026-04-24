@@ -7,9 +7,9 @@ import {
 } from '../services/item.service';
 
 // ─── GET /api/admin/restaurants/:restaurantId/items ───────────────────────────
-export function listItemsController(req: Request, res: Response): void {
+export async function listItemsController(req: Request, res: Response): Promise<void> {
   const { restaurantId } = req.params;
-  const result = getItemsByRestaurant(restaurantId);
+  const result = await getItemsByRestaurant(restaurantId);
   if (result.success) {
     res.status(200).json(result);
   } else {
@@ -18,8 +18,7 @@ export function listItemsController(req: Request, res: Response): void {
 }
 
 // ─── POST /api/admin/restaurants/:restaurantId/items ──────────────────────────
-// Module 3.1: Admin – Add Menu Item  (Class Diagram: Item.addItem())
-export function addItemController(req: Request, res: Response): void {
+export async function addItemController(req: Request, res: Response): Promise<void> {
   const { restaurantId } = req.params;
   const {
     itemName,
@@ -32,7 +31,7 @@ export function addItemController(req: Request, res: Response): void {
     description,
   } = req.body;
 
-  const result = addItem({
+  const result = await addItem({
     restaurantId,
     itemName:           String(itemName || ''),
     itemCost:           Number(itemCost),
@@ -52,7 +51,7 @@ export function addItemController(req: Request, res: Response): void {
 }
 
 // ─── PUT /api/admin/restaurants/:restaurantId/items/:id ───────────────────────
-export function updateItemController(req: Request, res: Response): void {
+export async function updateItemController(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
   const {
     itemName,
@@ -75,7 +74,7 @@ export function updateItemController(req: Request, res: Response): void {
   if (discountPercentage !== undefined) data.discountPercentage = Number(discountPercentage);
   if (description        !== undefined) data.description        = String(description);
 
-  const result = updateItem(id, data as Parameters<typeof updateItem>[1]);
+  const result = await updateItem(id, data as Parameters<typeof updateItem>[1]);
 
   if (result.success) {
     res.status(200).json(result);
@@ -85,9 +84,9 @@ export function updateItemController(req: Request, res: Response): void {
 }
 
 // ─── DELETE /api/admin/restaurants/:restaurantId/items/:id ───────────────────
-export function deleteItemController(req: Request, res: Response): void {
+export async function deleteItemController(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
-  const result = deleteItem(id);
+  const result = await deleteItem(id);
   if (result.success) {
     res.status(200).json(result);
   } else {

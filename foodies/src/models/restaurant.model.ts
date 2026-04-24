@@ -1,92 +1,123 @@
-// ─── In-Memory Restaurant Store ───────────────────────────────────────────────
+// ─── Restaurant Model — SQL Server ───────────────────────────────────────────
 // Class Diagram: Restaurant
-//   - restName: String
-//   - restRate: float
-//   - restMaxDeliveryTime: float
-//   - restMinDeliveryTime: float
-//   - restDeliveryCost: float
-//   - restLocation: String
-//   - openTime: String
-//   - closeTime: String
-//   - isOpen: boolean
+//   - restName, restRate, restMaxDeliveryTime, restMinDeliveryTime,
+//     restDeliveryCost, restLocation, openTime, closeTime, isOpen
 //   + checkOperatingStatus(): boolean
 
+import { getPool } from '../database';
+import * as sql from 'mssql';
+
 export interface Restaurant {
-  id: string;                    // unique identifier (generated)
-  restName: string;
-  restRate: number;              // default 0.0 on creation (no ratings yet)
-  restMaxDeliveryTime: number;   // minutes
-  restMinDeliveryTime: number;   // minutes
-  restDeliveryCost: number;      // EGP
-  restLocation: string;
-  openTime: string;              // "HH:MM" 24h format
-  closeTime: string;             // "HH:MM" 24h format
-  isOpen: boolean;               // false by default per flowchart
+  id: number;
+  name: string;
+  location: string;
+  rating: number;
+  deliveryTime: number;
+  deliveryPrice: number;
+  openTime: string;
+  closeTime: string;
 }
 
-// Singleton in-memory store (resets on server restart – no DB for this phase)
-const restaurants: Restaurant[] = [];
-
-// Seed one admin user for demo purposes (mirrors auth.service bootstrap logic)
-// We also seed an admin user at startup so testers can log in immediately.
-import { UserStore } from './user.model';
-import bcrypt from 'bcryptjs';
-
-async function seedAdmin() {
-  if (!UserStore.emailExists('admin@foodies.com')) {
-    const hash = await bcrypt.hash('Admin@123', 10);
-    UserStore.add({ email: 'admin@foodies.com', passwordHash: hash, isAdmin: true });
-    console.log('  🔑  Admin seeded → admin@foodies.com / Admin@123');
-  }
+function rowToRestaurant(row: any): Restaurant {
+  const idValue = row.id !== undefined ? row.id : (row.ID !== undefined ? row.ID : row.Id);
+  return {
+    id: Number(idValue),
+    name: row.name,
+    location: row.location,
+    rating: row.rating,
+    deliveryTime: row.delivery_time,
+    deliveryPrice: row.delivery_price,
+    openTime: row.open_time,
+    closeTime: row.close_time,
+  };
 }
-seedAdmin();
-
-let nextId = 1;
 
 export const RestaurantStore = {
   /** Return all restaurants */
-  findAll(): Restaurant[] {
-    return [...restaurants];
+  async findAll(): Promise<Restaurant[]> {
+    const pool = await getPool();
+    const result = await pool.request().query('SELECT * FROM [Restaurant]');
+    return result.recordset.map(rowToRestaurant);
   },
 
   /** Find by id */
-  findById(id: string): Restaurant | undefined {
-    return restaurants.find((r) => r.id === id);
+  async findById(id: number | string): Promise<Restaurant | undefined> {
+    const pool = await getPool();
+    const result = await pool
+      .request()
+      .input('id', sql.Int, Number(id))
+      .query('SELECT * FROM [Restaurant] WHERE id = @id');
+    if (result.recordset.length === 0) return undefined;
+    return rowToRestaurant(result.recordset[0]);
   },
 
   /** Find by name (case-insensitive) */
-  findByName(name: string): Restaurant | undefined {
-    return restaurants.find(
-      (r) => r.restName.toLowerCase() === name.trim().toLowerCase()
-    );
+  async findByName(name: string): Promise<Restaurant | undefined> {
+    const pool = await getPool();
+    const result = await pool
+      .request()
+      .input('name', sql.NVarChar, name.trim().toLowerCase())
+      .query('SELECT * FROM [Restaurant] WHERE LOWER(name) = @name');
+    if (result.recordset.length === 0) return undefined;
+    return rowToRestaurant(result.recordset[0]);
   },
 
-  /** Add a new restaurant — isOpen defaults to false (flowchart) */
-  add(data: Omit<Restaurant, 'id' | 'isOpen' | 'restRate'>): Restaurant {
-    const restaurant: Restaurant = {
-      id: String(nextId++),
-      restRate: 0,
-      isOpen: false,          // flowchart: "isOpen = false (default)"
-      ...data,
-    };
-    restaurants.push(restaurant);
-    return restaurant;
+  /** Add a new restaurant */
+  async add(data: Omit<Restaurant, 'id' | 'rating'>): Promise<Restaurant> {
+    const pool = await getPool();
+    const result = await pool
+      .request()
+      .input('name', sql.NVarChar, data.name.trim())
+      .input('location', sql.NVarChar, data.location.trim())
+      .input('delivery_price', sql.Float, data.deliveryPrice)
+      .input('delivery_time', sql.Int, data.deliveryTime)
+      .input('open_time', sql.NVarChar, data.openTime || '')
+      .input('close_time', sql.NVarChar, data.closeTime || '')
+      .query(`
+        INSERT INTO [Restaurant] (name, rating, delivery_time, min_delivery_time, max_delivery_time, delivery_price, location, open_time, close_time)
+        OUTPUT INSERTED.*
+        VALUES (@name, 0, @delivery_time, @delivery_time, @delivery_time + 15, @delivery_price, @location, @open_time, @close_time)
+      `);
+    return rowToRestaurant(result.recordset[0]);
   },
 
   /** Update fields on an existing restaurant */
-  update(id: string, data: Partial<Omit<Restaurant, 'id'>>): Restaurant | undefined {
-    const idx = restaurants.findIndex((r) => r.id === id);
-    if (idx === -1) return undefined;
-    restaurants[idx] = { ...restaurants[idx], ...data };
-    return restaurants[idx];
+  async update(id: number | string, data: Partial<Omit<Restaurant, 'id'>>): Promise<Restaurant | undefined> {
+    const existing = await this.findById(id);
+    if (!existing) return undefined;
+
+    const merged = { ...existing, ...data };
+    const pool = await getPool();
+    await pool
+      .request()
+      .input('id', sql.Int, Number(id))
+      .input('name', sql.NVarChar, merged.name)
+      .input('location', sql.NVarChar, merged.location)
+      .input('delivery_price', sql.Float, merged.deliveryPrice)
+      .input('delivery_time', sql.Int, merged.deliveryTime)
+      .input('open_time', sql.NVarChar, merged.openTime)
+      .input('close_time', sql.NVarChar, merged.closeTime)
+      .input('rating', sql.Float, merged.rating)
+      .query(`
+        UPDATE [Restaurant]
+        SET name = @name, location = @location, delivery_price = @delivery_price,
+            delivery_time = @delivery_time,
+            min_delivery_time = @delivery_time,
+            max_delivery_time = @delivery_time + 15,
+            open_time = @open_time, close_time = @close_time, rating = @rating
+        WHERE id = @id
+      `);
+    return this.findById(id);
   },
 
-  /** Remove a restaurant (and its promotions/items in a real DB cascade) */
-  remove(id: string): boolean {
-    const idx = restaurants.findIndex((r) => r.id === id);
-    if (idx === -1) return false;
-    restaurants.splice(idx, 1);
-    return true;
+  /** Remove a restaurant */
+  async remove(id: number | string): Promise<boolean> {
+    const pool = await getPool();
+    const result = await pool
+      .request()
+      .input('id', sql.Int, Number(id))
+      .query('DELETE FROM [Restaurant] WHERE id = @id');
+    return (result.rowsAffected[0] ?? 0) > 0;
   },
 
   /** Class Diagram: checkOperatingStatus(): boolean */

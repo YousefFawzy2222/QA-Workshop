@@ -81,13 +81,13 @@ export async function register(
   if (passwordError) return { success: false, error: passwordError };
 
   // UA-FR-04: Check email uniqueness
-  if (UserStore.emailExists(email.trim())) {
+  if (await UserStore.emailExists(email.trim())) {
     return { success: false, error: 'Email already registered' };
   }
 
   // Hash password and store user
   const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
-  UserStore.add({
+  await UserStore.add({
     email: email.trim().toLowerCase(),
     passwordHash,
     isAdmin: false,   // default per class diagram
@@ -107,13 +107,12 @@ export async function login(
   const GENERIC_ERROR = 'Check email and password again';
 
   // LG-FR-02: Email not registered
-  const user = UserStore.findByEmail(email.trim());
+  const user = await UserStore.findByEmail(email.trim());
   if (!user) {
     return { success: false, error: GENERIC_ERROR };
   }
 
-  // LG-FR-03 / LG-FR-04: Wrong password (covers wrongly typed email too since
-  //   email must match exactly; bcrypt compare handles the password check)
+  // LG-FR-03 / LG-FR-04: Wrong password
   const passwordMatch = await bcrypt.compare(password, user.passwordHash);
   if (!passwordMatch) {
     return { success: false, error: GENERIC_ERROR };

@@ -8,29 +8,30 @@ import {
 } from '../services/restaurant.service';
 
 // ─── GET /api/admin/restaurants ───────────────────────────────────────────────
-export function listRestaurantsController(_req: Request, res: Response): void {
-  const result = getAllRestaurants();
+export async function listRestaurantsController(_req: Request, res: Response): Promise<void> {
+  const result = await getAllRestaurants();
   res.status(200).json(result);
 }
 
 // ─── POST /api/admin/restaurants ─────────────────────────────────────────────
-// Admin flowchart: addRestaurant()
-export function addRestaurantController(req: Request, res: Response): void {
-  const { restName, restLocation, restDeliveryCost, restMinDeliveryTime, restMaxDeliveryTime } =
+export async function addRestaurantController(req: Request, res: Response): Promise<void> {
+  const { name, location, deliveryTime, deliveryPrice, openTime, closeTime } =
     req.body as {
-      restName: string;
-      restLocation: string;
-      restDeliveryCost: number;
-      restMinDeliveryTime: number;
-      restMaxDeliveryTime: number;
+      name: string;
+      location: string;
+      deliveryTime: number;
+      deliveryPrice: number;
+      openTime: string;
+      closeTime: string;
     };
 
-  const result = addRestaurant({
-    restName,
-    restLocation,
-    restDeliveryCost: Number(restDeliveryCost),
-    restMinDeliveryTime: Number(restMinDeliveryTime),
-    restMaxDeliveryTime: Number(restMaxDeliveryTime),
+  const result = await addRestaurant({
+    name,
+    location,
+    deliveryTime: Number(deliveryTime),
+    deliveryPrice: Number(deliveryPrice),
+    openTime,
+    closeTime,
   });
 
   if (result.success) {
@@ -41,24 +42,25 @@ export function addRestaurantController(req: Request, res: Response): void {
 }
 
 // ─── PUT /api/admin/restaurants/:id ──────────────────────────────────────────
-// Admin flowchart: updateRestaurant()
-export function updateRestaurantController(req: Request, res: Response): void {
+export async function updateRestaurantController(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
-  const { restName, restLocation, restDeliveryCost, restMinDeliveryTime, restMaxDeliveryTime } =
+  const { name, location, deliveryTime, deliveryPrice, openTime, closeTime } =
     req.body as {
-      restName?: string;
-      restLocation?: string;
-      restDeliveryCost?: number;
-      restMinDeliveryTime?: number;
-      restMaxDeliveryTime?: number;
+      name?: string;
+      location?: string;
+      deliveryTime?: number;
+      deliveryPrice?: number;
+      openTime?: string;
+      closeTime?: string;
     };
 
-  const result = updateRestaurant(id, {
-    ...(restName !== undefined && { restName }),
-    ...(restLocation !== undefined && { restLocation }),
-    ...(restDeliveryCost !== undefined && { restDeliveryCost: Number(restDeliveryCost) }),
-    ...(restMinDeliveryTime !== undefined && { restMinDeliveryTime: Number(restMinDeliveryTime) }),
-    ...(restMaxDeliveryTime !== undefined && { restMaxDeliveryTime: Number(restMaxDeliveryTime) }),
+  const result = await updateRestaurant(id, {
+    ...(name !== undefined && { name }),
+    ...(location !== undefined && { location }),
+    ...(deliveryTime !== undefined && { deliveryTime: Number(deliveryTime) }),
+    ...(deliveryPrice !== undefined && { deliveryPrice: Number(deliveryPrice) }),
+    ...(openTime !== undefined && { openTime }),
+    ...(closeTime !== undefined && { closeTime }),
   });
 
   if (result.success) {
@@ -69,10 +71,9 @@ export function updateRestaurantController(req: Request, res: Response): void {
 }
 
 // ─── DELETE /api/admin/restaurants/:id ───────────────────────────────────────
-// Admin flowchart: deleteRestaurant()
-export function deleteRestaurantController(req: Request, res: Response): void {
+export async function deleteRestaurantController(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
-  const result = deleteRestaurant(id);
+  const result = await deleteRestaurant(id);
 
   if (result.success) {
     res.status(200).json(result);
@@ -82,12 +83,11 @@ export function deleteRestaurantController(req: Request, res: Response): void {
 }
 
 // ─── PATCH /api/admin/restaurants/:id/hours ───────────────────────────────────
-// Admin flowchart: setOperatingHours()
-export function setOperatingHoursController(req: Request, res: Response): void {
+export async function setOperatingHoursController(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
   const { openTime, closeTime } = req.body as { openTime: string; closeTime: string };
 
-  const result = setOperatingHours(id, openTime, closeTime);
+  const result = await setOperatingHours(id, openTime, closeTime);
 
   if (result.success) {
     res.status(200).json(result);
