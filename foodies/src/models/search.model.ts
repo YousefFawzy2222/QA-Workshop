@@ -47,12 +47,18 @@ export const SearchStore = {
     return this.applyTieBreaking(sorted, sortCondition);
   },
 
+  /** handleSyntaxError(String): Restaurant[]
+   *  remove SQL-special chars */
   handleSyntaxError(query: string): string {
     if (!query) return '';
+    // remove any special SQL characters that might cause issues
     return query.replace(/[%_\[\]]/g, '').trim();
   },
 
+  /** applyTieBreaking(Restaurant[]): Restaurant[]
+   *  primary sort values are equal -> break ties by name */
   applyTieBreaking(restaurants: Restaurant[], sortCondition: string): Restaurant[] {
+    // tie-breaking sort — secondary sort by name
     if (sortCondition.toLowerCase() !== 'name') {
       const result = [...restaurants];
       result.sort((a, b) => {
