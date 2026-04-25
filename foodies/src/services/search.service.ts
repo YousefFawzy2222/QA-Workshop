@@ -1,4 +1,3 @@
-// ─── Search Service ──────────────────────────────────────────────────────────
 
 import { SearchStore } from '../models/search.model';
 import { RestaurantStore, Restaurant } from '../models/restaurant.model';
@@ -13,13 +12,13 @@ export async function searchRestaurants(query: string, sortCondition?: string): 
   let restaurants: Restaurant[];
 
   if (!query || query.trim().length === 0) {
-    // No search term — return all restaurants
+    // if no search term — return all restaurants
     restaurants = await RestaurantStore.findAll();
   } else {
     restaurants = await SearchStore.searchRestaurant(query);
   }
 
-  // Apply sorting
+  // apply sorting when it is there
   const sort = sortCondition || 'name';
   restaurants = SearchStore.sortRestaurants(restaurants, sort);
 
