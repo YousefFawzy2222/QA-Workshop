@@ -1,0 +1,108 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="gUNxU6fbDW4RtofF-AB5">
+    <mxGraphModel dx="1144" dy="593" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-4" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="255" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-2" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" value="start" vertex="1">
+          <mxGeometry height="60" width="150" x="180" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-family: &amp;quot;Anthropic Sans&amp;quot;, -apple-system, BlinkMacSystemFont, &amp;quot;Segoe UI&amp;quot;, sans-serif; font-size: 14px; text-align: start; white-space: nowrap;&quot;&gt;displayHome()&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="160" x="180" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-7" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="nsp_QVo-0CLRCCBGE_Yt-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-5" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="login successful?&lt;div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="185" x="162.5" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-6" parent="1" style="whiteSpace=wrap;html=1;" value="stay on login page&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="390" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="NO" vertex="1">
+          <mxGeometry height="30" width="60" x="320" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-15" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nsp_QVo-0CLRCCBGE_Yt-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-9" parent="1" style="whiteSpace=wrap;html=1;" value="redirect to home page" vertex="1">
+          <mxGeometry height="60" width="120" x="200" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-10" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" value="end" vertex="1">
+          <mxGeometry height="60" width="100" x="400" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-16" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nsp_QVo-0CLRCCBGE_Yt-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-11" parent="1" style="whiteSpace=wrap;html=1;" value="render navigation elements" vertex="1">
+          <mxGeometry height="60" width="120" x="200" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-12" parent="1" style="whiteSpace=wrap;html=1;" value="home page displayed" vertex="1">
+          <mxGeometry height="60" width="120" x="200" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-13" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" value="end" vertex="1">
+          <mxGeometry height="60" width="100" x="210" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-14" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.458;entryY=0.167;entryDx=0;entryDy=0;entryPerimeter=0;" target="nsp_QVo-0CLRCCBGE_Yt-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-17" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="nsp_QVo-0CLRCCBGE_Yt-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-18" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="nsp_QVo-0CLRCCBGE_Yt-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-19" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="YES" vertex="1">
+          <mxGeometry height="30" width="60" x="240" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-20" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="showCartTable()&lt;div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="150" x="750" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-21" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" value="start" vertex="1">
+          <mxGeometry height="60" width="140" x="750" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-31" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="nsp_QVo-0CLRCCBGE_Yt-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-23" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" value="cart items&amp;gt;= 1?" vertex="1">
+          <mxGeometry height="110" width="175" x="732.5" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-24" parent="1" style="whiteSpace=wrap;html=1;" value="hide cart tab from nav" vertex="1">
+          <mxGeometry height="60" width="150" x="740" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-32" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.411;entryY=0.024;entryDx=0;entryDy=0;entryPerimeter=0;" target="nsp_QVo-0CLRCCBGE_Yt-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-25" parent="1" style="whiteSpace=wrap;html=1;" value="show cart in nav" vertex="1">
+          <mxGeometry height="60" width="120" x="1090" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-26" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" value="end" vertex="1">
+          <mxGeometry height="60" width="100" x="1110" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-27" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" value="end" vertex="1">
+          <mxGeometry height="60" width="105" x="770" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-28" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="nsp_QVo-0CLRCCBGE_Yt-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-29" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.533;entryY=0.167;entryDx=0;entryDy=0;entryPerimeter=0;" target="nsp_QVo-0CLRCCBGE_Yt-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-30" edge="1" parent="1" source="nsp_QVo-0CLRCCBGE_Yt-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.4;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="nsp_QVo-0CLRCCBGE_Yt-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-33" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="YES" vertex="1">
+          <mxGeometry height="30" width="60" x="1020" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="nsp_QVo-0CLRCCBGE_Yt-34" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="NO" vertex="1">
+          <mxGeometry height="30" width="60" x="820" y="290" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
