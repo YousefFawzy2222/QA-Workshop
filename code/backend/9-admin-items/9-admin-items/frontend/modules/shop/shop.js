@@ -37,6 +37,26 @@ const shopApi = {
   updateQty(menuItemId, delta) {
     const item = this.cart.find(c => c.menuItemId === menuItemId);
     if (!item) return;
+
+    if (delta > 0) {
+      const currentTotalQty = this.cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
+      if (currentTotalQty + delta > 100) {
+        let errEl = document.getElementById('cart-limit-error');
+        if (!errEl) {
+          errEl = document.createElement('div');
+          errEl.id = 'cart-limit-error';
+          errEl.style.cssText = 'background:var(--c-danger-bg, #fef2f2);border:1px solid var(--c-danger, #ef4444);border-radius:10px;padding:10px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px;';
+          errEl.innerHTML = '<span style="font-size:16px;">⚠️</span><div style="font-weight:600;font-size:13px;color:var(--c-danger);">Maximum limit of 100 items per order is reached.</div>';
+          const table = document.querySelector('.data-table');
+          if (table) table.parentNode.insertBefore(errEl, table);
+        }
+        return;
+      }
+    }
+
+    const errLimit = document.getElementById('cart-limit-error');
+    if (errLimit) errLimit.remove();
+
     item.quantity += delta;
     if (item.quantity <= 0) this.removeFromCart(menuItemId);
     else this.saveCart();
@@ -108,10 +128,16 @@ const shopApi = {
       </div>
       ${!isOpen ? '<div style="background:var(--c-danger-bg, #fef2f2);border:1px solid var(--c-danger, #ef4444);border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:10px;"><span style="font-size:20px;">🚫</span><div><div style="font-weight:600;font-size:13px;color:var(--c-danger);">This restaurant is currently closed and not accepting orders.</div><div style="font-size:12px;color:var(--c-text-secondary);margin-top:2px;">Operating hours: '+rest.openTime+' – '+rest.closeTime+'</div></div></div>' : ''}
       <div class="divider"></div>
-      <h3 class="section-heading" style="font-size:15px;">Menu items</h3>
-      <div class="two-col" style="margin-top:14px;" id="menu-items-grid">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <h3 class="section-heading" style="font-size:15px;margin:0;">Menu items</h3>
+        <div style="display:flex;gap:6px;margin-left:auto;">
+          <button class="btn btn-sm btn-primary" id="filter-all-btn" onclick="shopApi.filterMenu('all')" style="font-size:12px;padding:4px 14px;">All</button>
+          <button class="btn btn-sm btn-secondary" id="filter-offers-btn" onclick="shopApi.filterMenu('offers')" style="font-size:12px;padding:4px 14px;">🏷️ Offers</button>
+        </div>
+      </div>
+      <div class="two-col" style="margin-top:0;" id="menu-items-grid">
         ${items.length === 0 ? '<p style="color:var(--c-text-secondary)">No menu items yet.</p>' : items.map(item => `
-          <div class="menu-card" ${!isOpen ? 'style="opacity:0.6;"' : ''}>
+          <div class="menu-card" data-has-offer="${item.isOnDiscount ? 'true' : 'false'}" ${!isOpen ? 'style="opacity:0.6;"' : ''}>
             <div style="display:flex;gap:14px;">
               <div class="menu-card-img" style="background:var(--c-bg-tertiary);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🍔</div>
               <div style="flex:1;">
@@ -129,6 +155,44 @@ const shopApi = {
         `).join('')}
       </div>`;
     this._menuItems = items;
+    this._menuFilter = 'all';
+  },
+
+  // DEF_OFF_02: Filter menu items by offers
+  filterMenu(filter) {
+    this._menuFilter = filter;
+    const cards = document.querySelectorAll('#menu-items-grid .menu-card');
+    const allBtn = document.getElementById('filter-all-btn');
+    const offersBtn = document.getElementById('filter-offers-btn');
+
+    if (filter === 'offers') {
+      let anyVisible = false;
+      cards.forEach(card => {
+        if (card.dataset.hasOffer === 'true') {
+          card.style.display = '';
+          anyVisible = true;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      // Show empty state if no offers
+      let emptyEl = document.getElementById('no-offers-msg');
+      if (!anyVisible && !emptyEl) {
+        emptyEl = document.createElement('p');
+        emptyEl.id = 'no-offers-msg';
+        emptyEl.style.cssText = 'color:var(--c-text-secondary);text-align:center;padding:20px;grid-column:1/-1;';
+        emptyEl.textContent = 'No items with active offers in this restaurant.';
+        document.getElementById('menu-items-grid').appendChild(emptyEl);
+      }
+      if (allBtn) { allBtn.className = 'btn btn-sm btn-secondary'; }
+      if (offersBtn) { offersBtn.className = 'btn btn-sm btn-primary'; }
+    } else {
+      cards.forEach(card => { card.style.display = ''; });
+      const emptyEl = document.getElementById('no-offers-msg');
+      if (emptyEl) emptyEl.remove();
+      if (allBtn) { allBtn.className = 'btn btn-sm btn-primary'; }
+      if (offersBtn) { offersBtn.className = 'btn btn-sm btn-secondary'; }
+    }
   },
 
   menuQty(itemId, delta) {
@@ -142,14 +206,70 @@ const shopApi = {
   addMenuItem(itemId) {
     const item = (this._menuItems || []).find(i => i.id === itemId);
     if (!item) return;
+
+    // DEF_ORD_01: Block ordering from multiple restaurants
+    if (this.cart.length > 0) {
+      const existingRestId = this.cart[0].restaurantId;
+      if (item.restaurantId !== existingRestId) {
+        // Show inline error below the menu grid
+        let errEl = document.getElementById('multi-rest-error');
+        if (!errEl) {
+          errEl = document.createElement('div');
+          errEl.id = 'multi-rest-error';
+          errEl.style.cssText = 'background:var(--c-danger-bg, #fef2f2);border:1px solid var(--c-danger, #ef4444);border-radius:10px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;gap:10px;';
+          errEl.innerHTML = '<span style="font-size:20px;">⚠️</span><div style="font-weight:600;font-size:13px;color:var(--c-danger);">You can order from only one restaurant at a time</div>';
+          const grid = document.getElementById('menu-items-grid');
+          if (grid) grid.parentNode.insertBefore(errEl, grid.nextSibling);
+        }
+        return;
+      }
+    }
+
     const qtyEl = document.getElementById(`mqty-${itemId}`);
     const qty = qtyEl ? parseInt(qtyEl.textContent) : 1;
+
+    // TC_RES_01, TC_RES_02, TC_RES_03: Block adding more than 100 items total
+    const currentTotalQty = this.cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
+    if (currentTotalQty + qty > 100) {
+      let errEl = document.getElementById('order-limit-error');
+      if (!errEl) {
+        errEl = document.createElement('div');
+        errEl.id = 'order-limit-error';
+        errEl.style.cssText = 'background:var(--c-danger-bg, #fef2f2);border:1px solid var(--c-danger, #ef4444);border-radius:10px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;gap:10px;';
+        errEl.innerHTML = '<span style="font-size:20px;">⚠️</span><div style="font-weight:600;font-size:13px;color:var(--c-danger);">Maximum limit of 100 items per order is reached.</div>';
+        const grid = document.getElementById('menu-items-grid');
+        if (grid) grid.parentNode.insertBefore(errEl, grid.nextSibling);
+      }
+      // Remove any other existing errors to avoid clutter
+      const otherErr = document.getElementById('multi-rest-error');
+      if (otherErr) otherErr.remove();
+      return;
+    }
+
     const price = item.isOnDiscount ? item.itemCost * (1 - item.discountPercentage/100) : item.itemCost;
     const existing = this.cart.find(c => c.menuItemId === item.id);
     if (existing) { existing.quantity += qty; }
     else { this.cart.push({ menuItemId: item.id, name: item.itemName, price, rawPrice: item.itemCost, quantity: qty, restaurantId: item.restaurantId }); }
     this.saveCart();
-    alert(`${item.itemName} × ${qty} added to cart!`);
+
+    // Remove errors if successful
+    const errLimit = document.getElementById('order-limit-error');
+    if (errLimit) errLimit.remove();
+    const errRest = document.getElementById('multi-rest-error');
+    if (errRest) errRest.remove();
+
+    // DEF_ORD_04 / DEF_ORD_05 / DEF_ORD_06: Show modal with "Continue Ordering" and "View Cart"
+    const modalBox = document.querySelector('#cartModal .modal-box');
+    if (modalBox) {
+      modalBox.innerHTML = `
+        <h3>Item added to cart!</h3>
+        <p class="subtitle">${item.itemName} × ${qty}</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+          <button class="btn btn-secondary btn-full" onclick="closeModal()">Continue ordering</button>
+          <button class="btn btn-primary btn-full" onclick="closeModal();go(9);">View cart</button>
+        </div>`;
+    }
+    document.getElementById('cartModal').classList.add('open');
   },
 
   // ── S9: Cart ──

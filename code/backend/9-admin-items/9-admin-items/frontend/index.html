@@ -67,10 +67,17 @@
           <p class="subtitle">Sign up to start ordering food</p>
           <label class="field-label" for="signup-email">Email address</label>
           <input class="field-input" id="signup-email" type="email" placeholder="you@example.com">
-          <div class="field-error" id="signup-email-err" style="display:none">Invalid email format</div>
+          <div class="field-error" id="signup-email-err" style="display:none">Invalid email</div>
           <label class="field-label" for="signup-pass">Password</label>
           <input class="field-input" id="signup-pass" type="password" placeholder="Create a strong password">
-          <div class="field-error" id="signup-pass-err" style="display:none">Password cannot be empty</div>
+          <div class="field-error" id="signup-pass-err" style="display:none">Password can't be empty</div>
+          <div id="signup-pass-constraints" style="display:none;margin-top:4px;font-size:12px;color:var(--c-text-secondary);">
+            <div id="pw-len" style="color:#e74c3c;">✗ 8–64 characters</div>
+            <div id="pw-upper" style="color:#e74c3c;">✗ 1 uppercase letter</div>
+            <div id="pw-lower" style="color:#e74c3c;">✗ 1 lowercase letter</div>
+            <div id="pw-special" style="color:#e74c3c;">✗ 1 special character</div>
+            <div id="pw-number" style="color:#e74c3c;">✗ 1 number</div>
+          </div>
           <div class="rules-box">
             <h4>Password requirements</h4>
             <div class="rules-grid">
@@ -122,8 +129,9 @@
     <div class="screen" id="s3">
       <h2 class="section-heading">Nearby restaurants <span class="tag tag-info" style="font-size:11px;margin-left:8px;">Within 10 km</span></h2>
       <p class="section-sub">Restaurants close to your location, sorted by distance.</p>
+      <div id="location-status" style="display:none;margin-bottom:12px;padding:10px 14px;border-radius:8px;font-size:12px;"></div>
       <div class="tab-bar">
-        <div class="tab-item active">Restaurants</div>
+        <div class="tab-item active" onclick="go(3)">Restaurants</div>
         <div class="tab-item" onclick="go(6)">Offers</div>
       </div>
       <div class="filter-bar">
@@ -160,7 +168,7 @@
       <h2 class="section-heading">Nearby restaurants <span class="tag tag-info" style="font-size:11px;margin-left:8px;">Within 10 km</span></h2>
       <p class="section-sub">Your cart is empty — add items to see the cart button appear.</p>
       <div class="tab-bar">
-        <div class="tab-item active">Restaurants</div>
+        <div class="tab-item active" onclick="go(3)">Restaurants</div>
         <div class="tab-item" onclick="go(6)">Offers</div>
       </div>
       <div class="filter-bar">
@@ -255,13 +263,13 @@
 </div>
 
 <script src="core/client.js?v=30"></script>
-<script src="modules/auth/auth.js?v=30"></script>
-<script src="modules/home/home.js?v=33"></script>
-<script src="modules/shop/shop.js?v=33"></script>
+<script src="modules/auth/auth.js?v=35"></script>
+<script src="modules/home/home.js?v=39"></script>
+<script src="modules/shop/shop.js?v=39"></script>
 <script src="modules/admin/admin.js?v=34"></script>
 <script src="modules/items/items.js?v=30"></script>
 <script src="modules/address/address.js?v=31"></script>
 <script src="core/screens.js?v=31"></script>
-<script src="core/app.js?v=30"></script>
+<script src="core/app.js?v=36"></script>
 </body>
 </html>

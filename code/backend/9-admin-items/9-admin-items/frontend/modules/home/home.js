@@ -1,17 +1,60 @@
 const homeApi = {
   currentSort: 'distance',
 
+  // DEF_HP_01: Simple hardcoded user location (Cairo center)
+  // In a real app, this would come from the user's saved address
+  _userLocation: { lat: 30.0444, lng: 31.2357 },
+
+  // Hardcoded restaurant coordinates (Cairo area)
+  // Each restaurant gets a fixed lat/lng so distance is always consistent
+  _restaurantCoords: {
+    1:  { lat: 30.0500, lng: 31.2400 },  // ~0.7 km  (nearby)
+    2:  { lat: 30.0600, lng: 31.2500 },  // ~2.1 km
+    3:  { lat: 30.0700, lng: 31.2200 },  // ~3.2 km
+    4:  { lat: 30.0300, lng: 31.2600 },  // ~3.1 km
+    5:  { lat: 30.0800, lng: 31.2100 },  // ~4.7 km
+    6:  { lat: 30.0200, lng: 31.2700 },  // ~4.5 km
+    7:  { lat: 30.0900, lng: 31.2000 },  // ~6.3 km
+    8:  { lat: 30.0100, lng: 31.2800 },  // ~6.1 km
+    9:  { lat: 30.1000, lng: 31.1900 },  // ~7.8 km
+    10: { lat: 30.0000, lng: 31.2900 },  // ~7.6 km
+    11: { lat: 30.1100, lng: 31.1800 },  // ~9.4 km
+    12: { lat: 29.9900, lng: 31.3000 },  // ~9.2 km
+    13: { lat: 30.1200, lng: 31.1700 },  // ~11.0 km (out of range!)
+    14: { lat: 29.9800, lng: 31.3100 },  // ~10.8 km (out of range!)
+    15: { lat: 30.1400, lng: 31.1500 },  // ~13.9 km (out of range!)
+  },
+
+  // Haversine formula — calculates distance between two lat/lng points in km
+  _haversine(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Earth's radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) ** 2 +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  },
+
+  // Calculate distance from user to restaurant
+  _getDistance(rest) {
+    if (rest.distance !== undefined) return rest.distance;
+    const coords = this._restaurantCoords[rest.id];
+    if (coords) {
+      return this._haversine(
+        this._userLocation.lat, this._userLocation.lng,
+        coords.lat, coords.lng
+      );
+    }
+    // Fallback for restaurants not in our lookup table
+    return ((rest.id * 7) % 150) / 10 + 0.5;
+  },
+
   async getRestaurants(query = '', sort = 'name') {
     const params = new URLSearchParams();
     if (query) params.set('q', query);
     if (sort) params.set('sort', sort);
     return apiClient.get(`/search?${params.toString()}`);
-  },
-
-  _getDistance(rest) {
-    // Stable mock distance based on ID for testing (1-15 km range)
-    if (rest.distance !== undefined) return rest.distance;
-    return ((rest.id * 7) % 150) / 10 + 0.5; // e.g. 1.2, 5.4, 10.1
   },
 
   _isRestaurantOpen(rest) {

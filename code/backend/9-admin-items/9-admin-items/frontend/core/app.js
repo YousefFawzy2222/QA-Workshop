@@ -37,6 +37,13 @@ function go(id) {
   document.getElementById('auth-nav').classList.toggle('hidden', !isAuth);
   document.getElementById('app-nav').classList.toggle('hidden', isAuth);
 
+  // Hide or show Admin tab based on user privileges
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+  const adminNavBtn = document.querySelector('button.nav-link[onclick="go(17)"]');
+  if (adminNavBtn) {
+    adminNavBtn.style.display = isAdmin ? '' : 'none';
+  }
+
   // Toggle screens
   document.querySelectorAll('.screen').forEach(s => {
     s.classList.toggle('active', s.id === 's' + id);
@@ -140,27 +147,103 @@ const signupPass = document.getElementById('signup-pass');
 
 if (signupEmail) {
   signupEmail.addEventListener('input', function() {
-    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value);
+    const val = this.value;
     const err = document.getElementById('signup-email-err');
-    if (this.value.length > 0 && !valid) {
-      this.classList.add('error');
+    if (val.length === 0) {
+      // DEF_UA_001 / DEF_UA_013: Show error for empty email in real time
+      err.textContent = "Email can't be empty";
       err.style.display = 'flex';
+      this.classList.add('error');
     } else {
-      this.classList.remove('error');
-      err.style.display = 'none';
+      // DEF_UA_002 / DEF_UA_003 / DEF_UA_015: Validate email format, show "Invalid email"
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      if (!valid) {
+        err.textContent = 'Invalid email';
+        err.style.display = 'flex';
+        this.classList.add('error');
+      } else {
+        // DEF_UA_014: Clear error when input is corrected
+        err.style.display = 'none';
+        this.classList.remove('error');
+      }
+    }
+  });
+
+  // Also validate on blur for empty field detection
+  signupEmail.addEventListener('blur', function() {
+    const val = this.value;
+    const err = document.getElementById('signup-email-err');
+    if (val.length === 0) {
+      err.textContent = "Email can't be empty";
+      err.style.display = 'flex';
+      this.classList.add('error');
     }
   });
 }
 
 if (signupPass) {
   signupPass.addEventListener('input', function() {
+    const val = this.value;
     const err = document.getElementById('signup-pass-err');
-    if (this.value.length === 0) {
+    const constraintsBox = document.getElementById('signup-pass-constraints');
+
+    if (val.length === 0) {
+      // DEF_UA_001 / DEF_UA_013: Show empty password error
+      err.textContent = "Password can't be empty";
+      err.style.display = 'flex';
+      this.classList.add('error');
+      if (constraintsBox) constraintsBox.style.display = 'none';
+      return;
+    }
+
+    // DEF_UA_004-010, DEF_UA_012: Real-time password constraint validation
+    const hasLen = val.length >= 8 && val.length <= 64;
+    const hasUpper = /[A-Z]/.test(val);
+    const hasLower = /[a-z]/.test(val);
+    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]/.test(val);
+    const hasNumber = /[0-9]/.test(val);
+
+    // Update constraint checklist indicators
+    const updateIndicator = function(id, passed) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (passed) {
+        el.style.color = '#27ae60';
+        el.textContent = '✓ ' + el.textContent.substring(2);
+      } else {
+        el.style.color = '#e74c3c';
+        el.textContent = '✗ ' + el.textContent.substring(2);
+      }
+    };
+
+    if (constraintsBox) constraintsBox.style.display = 'block';
+    updateIndicator('pw-len', hasLen);
+    updateIndicator('pw-upper', hasUpper);
+    updateIndicator('pw-lower', hasLower);
+    updateIndicator('pw-special', hasSpecial);
+    updateIndicator('pw-number', hasNumber);
+
+    const allValid = hasLen && hasUpper && hasLower && hasSpecial && hasNumber;
+    if (!allValid) {
+      // DEF_UA_004-010, DEF_UA_012: Show "Invalid password" with constraints listed
+      err.textContent = 'Invalid password';
       err.style.display = 'flex';
       this.classList.add('error');
     } else {
+      // DEF_UA_014: Clear error when input is corrected
       err.style.display = 'none';
       this.classList.remove('error');
+    }
+  });
+
+  // Also validate on blur for empty field detection
+  signupPass.addEventListener('blur', function() {
+    const val = this.value;
+    const err = document.getElementById('signup-pass-err');
+    if (val.length === 0) {
+      err.textContent = "Password can't be empty";
+      err.style.display = 'flex';
+      this.classList.add('error');
     }
   });
 }
