@@ -209,11 +209,12 @@
     <!-- S5: SEARCH -->
     <div class="screen" id="s5">
       <h2 class="section-heading">Search</h2>
-      <div class="filter-bar">
+      <div class="filter-bar" style="position:relative;">
         <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input id="search-input" placeholder="Search restaurants..." style="color:var(--c-text)">
+        <input id="search-input" placeholder="Search restaurants..." style="color:var(--c-text);padding-right:30px;">
+        <button id="search-clear" onclick="document.getElementById('search-input').value='';homeApi.search();this.style.display='none';" style="display:none;cursor:pointer;background:none;border:none;font-size:18px;color:var(--c-text-muted);padding:4px 8px;margin-right:4px;">✕</button>
         <div class="sort-wrap">
-          <button class="sort-btn" onclick="toggleSort('sm2')">Sort: Name ↕</button>
+          <button class="sort-btn" onclick="toggleSort('sm2')">Sort: Nearest ↕</button>
           <div class="sort-menu" id="sm2"></div>
         </div>
       </div>
@@ -255,12 +256,12 @@
 
 <script src="core/client.js?v=30"></script>
 <script src="modules/auth/auth.js?v=30"></script>
-<script src="modules/home/home.js?v=30"></script>
-<script src="modules/shop/shop.js?v=30"></script>
+<script src="modules/home/home.js?v=32"></script>
+<script src="modules/shop/shop.js?v=31"></script>
 <script src="modules/admin/admin.js?v=30"></script>
 <script src="modules/items/items.js?v=30"></script>
-<script src="modules/address/address.js?v=30"></script>
-<script src="core/screens.js?v=30"></script>
+<script src="modules/address/address.js?v=31"></script>
+<script src="core/screens.js?v=31"></script>
 <script src="core/app.js?v=30"></script>
 </body>
 </html>

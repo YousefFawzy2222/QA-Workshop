@@ -209,14 +209,14 @@ ph.innerHTML = `
     <div class="card">
       <div class="two-col">
         <div><label class="field-label">Phone number (11 digits)</label><input class="field-input" placeholder="01X XXXX XXXX"><div class="field-error" style="display:none;">Phone number must be exactly 11 digits</div></div>
-        <div><label class="field-label">Building name</label><input class="field-input" placeholder="Building name"></div>
+        <div><label class="field-label">Building name</label><input class="field-input" placeholder="Building name"><div class="field-error" style="display:none;">This field is required</div></div>
       </div>
       <div class="two-col">
-        <div><label class="field-label">Apartment number</label><input class="field-input" placeholder="Apt 4B"></div>
-        <div><label class="field-label">Floor</label><input class="field-input" placeholder="3rd floor"></div>
+        <div><label class="field-label">Apartment number</label><input class="field-input" placeholder="Apt 4B"><div class="field-error" style="display:none;">This field is required</div></div>
+        <div><label class="field-label">Floor</label><input class="field-input" placeholder="3rd floor"><div class="field-error" style="display:none;">This field is required</div></div>
       </div>
       <div class="two-col">
-        <div><label class="field-label">Street</label><input class="field-input" placeholder="El Nasr St."></div>
+        <div><label class="field-label">Street</label><input class="field-input" placeholder="El Nasr St."><div class="field-error" style="display:none;">This field is required</div></div>
         <div><label class="field-label">Nearby landmark (optional)</label><input class="field-input" placeholder="Near the supermarket"></div>
       </div>
       <button class="btn btn-primary">Save address</button>

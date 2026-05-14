@@ -169,36 +169,67 @@ const shopApi = {
   },
 
   // ── S10: Checkout ──
+  _pointsCredit: 0,
+  _pointsBalance: 0,
+
   async renderCheckout() {
     const s10 = document.getElementById('s10');
     if (!s10) return;
     const sub = this.getSubtotal();
     const delivery = this.currentRestaurant ? this.currentRestaurant.restDeliveryCost : 15;
+    this._pointsCredit = 0;
+    this._pointsBalance = 0;
+
+    // Loyalty
     let loyaltyHtml = '';
     try {
       const loyRes = await apiClient.get('/user/loyalty');
       if (loyRes.ok) {
         const pts = loyRes.data.pointsBalance || 0;
+        this._pointsBalance = pts;
         const canRedeem = pts >= 1000;
-        loyaltyHtml = `<div class="card"><h3 style="font-size:14px;font-weight:600;margin-bottom:14px;">Loyalty & rewards</h3>
+        const credit = Math.floor(pts * 0.01);
+        this._pointsCredit = canRedeem ? credit : 0;
+        loyaltyHtml = `<div class="card"><h3 style="font-size:14px;font-weight:600;margin-bottom:14px;">Loyalty &amp; rewards</h3>
           <div style="display:flex;align-items:center;gap:12px;">
-            <input type="checkbox" id="use-points" ${canRedeem ? '' : 'disabled'}>
-            <div style="flex:1;"><div style="font-size:13px;font-weight:500;">${canRedeem ? 'Redeem points → '+(pts*0.01).toFixed(0)+' EGP credit' : 'Not enough points (need 1000)'}</div><div style="font-size:12px;color:var(--c-text-secondary);">Balance: ${pts} pts</div></div>
+            <input type="checkbox" id="use-points" ${canRedeem ? '' : 'disabled'} onchange="shopApi.togglePoints()">
+            <div style="flex:1;"><div style="font-size:13px;font-weight:500;">${canRedeem ? 'Redeem points &rarr; '+credit+' EGP credit' : 'Not enough points (need 1000)'}</div><div style="font-size:12px;color:var(--c-text-secondary);">Balance: ${pts} pts</div></div>
           </div></div>`;
       }
     } catch(e) {}
+
+    // Address
     let addrHtml = '';
+    let hasAddress = false;
     try {
       const aRes = await apiClient.get('/address');
       if (aRes.ok && aRes.data && aRes.data.length > 0) {
-        addrHtml = aRes.data.map((a,i) => `<div class="address-card" onclick="document.querySelectorAll('.address-card').forEach(c=>c.classList.remove('selected'));this.classList.add('selected');shopApi._selectedAddr=${a.id};" ${i===0?'class="address-card selected"':''}><div style="font-size:13px;font-weight:600;">Address ${i+1}</div><div style="font-size:12px;color:var(--c-text-secondary);">${a.phoneNumber||''} · ${a.buildingName||''}, Apt ${a.aptNumber||''}, ${a.street||''}</div></div>`).join('');
+        hasAddress = true;
+        addrHtml = aRes.data.map((a,i) => `<div class="address-card${i===0?' selected':''}" onclick="document.querySelectorAll('.address-card').forEach(c=>c.classList.remove('selected'));this.classList.add('selected');shopApi._selectedAddr=${a.id};"><div style="font-size:13px;font-weight:600;">Address ${i+1}</div><div style="font-size:12px;color:var(--c-text-secondary);">${a.phoneNumber||''} &middot; ${a.buildingName||''}, Apt ${a.aptNumber||''}, ${a.street||''}</div></div>`).join('');
         this._selectedAddr = aRes.data[0].id;
       }
     } catch(e) {}
+
+    // If no address, show inline temp form instead of linking to S14
+    if (!hasAddress) {
+      this._selectedAddr = null;
+      this._tempAddrId = null;
+      addrHtml = `<div id="checkout-addr-form">
+        <p style="color:var(--c-text-secondary);margin-bottom:12px;">Enter a delivery address for this order:</p>
+        <div class="two-col"><div><label class="field-label">Phone number</label><input class="field-input" id="co-phone" placeholder="01X XXXX XXXX"></div><div><label class="field-label">Building</label><input class="field-input" id="co-building" placeholder="Building name"></div></div>
+        <div class="two-col"><div><label class="field-label">Apartment</label><input class="field-input" id="co-apt" placeholder="Apt"></div><div><label class="field-label">Floor</label><input class="field-input" id="co-floor" placeholder="Floor"></div></div>
+        <div class="two-col"><div><label class="field-label">Street</label><input class="field-input" id="co-street" placeholder="Street"></div><div><label class="field-label">Landmark (optional)</label><input class="field-input" id="co-landmark" placeholder="Nearby"></div></div>
+        <div id="co-addr-error" style="color:var(--c-danger);font-size:12px;display:none;margin-top:4px;">Please fill all required fields</div>
+      </div>`;
+    }
+
+    const total = sub + delivery;
+    const placeDisabled = '';
+
     s10.innerHTML = `
       <h2 class="section-heading">Checkout</h2>
       <div class="checkout-grid"><div>
-        <div class="card"><h3 style="font-size:14px;font-weight:600;margin-bottom:14px;">Delivery address</h3>${addrHtml || '<p style="color:var(--c-text-secondary);">No saved address. <span class="link" onclick="go(14)">Add one</span></p>'}</div>
+        <div class="card"><h3 style="font-size:14px;font-weight:600;margin-bottom:14px;">Delivery address</h3>${addrHtml}</div>
         ${loyaltyHtml}
         <div class="card"><h3 style="font-size:14px;font-weight:600;margin-bottom:14px;">Payment method</h3><div style="display:flex;align-items:center;gap:10px;"><div class="radio-dot filled"></div><span style="font-size:13px;">Cash on delivery</span><span class="tag tag-success" style="margin-left:auto;">Only option</span></div></div>
       </div><div>
@@ -206,23 +237,88 @@ const shopApi = {
           <h3 style="font-size:15px;font-weight:600;margin-bottom:14px;">Order summary</h3>
           <div class="row"><span style="font-size:13px;color:var(--c-text-secondary);">Subtotal</span><span>${sub.toFixed(0)} EGP</span></div>
           <div class="row"><span style="font-size:13px;color:var(--c-text-secondary);">Delivery fee</span><span>${delivery} EGP</span></div>
+          <div id="points-discount-row" style="display:none;"><div class="row"><span style="font-size:13px;color:var(--c-danger);">Points discount</span><span style="color:var(--c-danger);" id="points-discount-val"></span></div></div>
           <div class="divider"></div>
-          <div class="row"><span style="font-size:16px;font-weight:600;">Total</span><span style="font-size:16px;font-weight:600;">${(sub+delivery).toFixed(0)} EGP</span></div>
+          <div class="row"><span style="font-size:16px;font-weight:600;">Total</span><span style="font-size:16px;font-weight:600;" id="checkout-total">${total.toFixed(0)} EGP</span></div>
           <div class="divider"></div>
-          <button class="btn btn-primary btn-full" onclick="shopApi.placeOrder()">Place order</button>
+          <button class="btn btn-primary btn-full" id="place-order-btn" onclick="shopApi.placeOrder()" ${placeDisabled}>Place order</button>
         </div>
       </div></div>`;
   },
 
+  togglePoints() {
+    const cb = document.getElementById('use-points');
+    const discountRow = document.getElementById('points-discount-row');
+    const discountVal = document.getElementById('points-discount-val');
+    const totalEl = document.getElementById('checkout-total');
+    const sub = this.getSubtotal();
+    const delivery = this.currentRestaurant ? this.currentRestaurant.restDeliveryCost : 15;
+    let total = sub + delivery;
+    if (cb && cb.checked && this._pointsCredit > 0) {
+      const discount = Math.min(this._pointsCredit, total);
+      total -= discount;
+      if (discountRow) discountRow.style.display = 'block';
+      if (discountVal) discountVal.textContent = '-' + discount + ' EGP';
+    } else {
+      if (discountRow) discountRow.style.display = 'none';
+    }
+    if (totalEl) totalEl.textContent = total.toFixed(0) + ' EGP';
+  },
+
   // ── Place Order ──
+  _tempAddrId: null,
+
   async placeOrder() {
     if (this.cart.length === 0) { alert('Cart is empty'); return; }
+
+    // If inline checkout address form is present, save it temporarily
+    const coForm = document.getElementById('checkout-addr-form');
+    if (coForm && !this._selectedAddr) {
+      const phone = document.getElementById('co-phone')?.value || '';
+      const building = document.getElementById('co-building')?.value || '';
+      const apt = document.getElementById('co-apt')?.value || '';
+      const floor = document.getElementById('co-floor')?.value || '';
+      const street = document.getElementById('co-street')?.value || '';
+      const landmark = document.getElementById('co-landmark')?.value || '';
+      const errEl = document.getElementById('co-addr-error');
+
+      if (!phone.trim() || !building.trim() || !street.trim()) {
+        if (errEl) { errEl.textContent = "Can't place an order without specifying the address"; errEl.style.display = 'block'; }
+        return;
+      }
+
+      // Save temp address via API
+      const addrRes = await apiClient.post('/address', {
+        phoneNumber: phone, buildingName: building,
+        aptNumber: parseInt(apt) || 0, floorNumber: parseInt(floor) || 0,
+        street: street, nearbyLandmark: landmark
+      });
+      if (!addrRes.ok) {
+        if (errEl) { errEl.textContent = addrRes.data?.error || 'Failed to save address'; errEl.style.display = 'block'; }
+        return;
+      }
+      this._selectedAddr = addrRes.data.id;
+      this._tempAddrId = addrRes.data.id;
+    }
+
+    if (!this._selectedAddr) {
+      alert("Can't place an order without specifying the address");
+      return;
+    }
+
     const restId = this.cart[0].restaurantId;
     const usePoints = document.getElementById('use-points')?.checked || false;
-    const body = { restaurantId: restId, addressId: this._selectedAddr || null, usePoints, items: this.cart.map(c => ({ menuItemId: c.menuItemId, quantity: c.quantity })) };
+    const body = { restaurantId: restId, addressId: this._selectedAddr, usePoints, items: this.cart.map(c => ({ menuItemId: c.menuItemId, quantity: c.quantity })) };
     const res = await apiClient.post('/orders', body);
     if (res.ok) {
       const order = res.data.order;
+
+      // Delete temp address so it doesn't persist in profile
+      if (this._tempAddrId) {
+        try { await apiClient.delete('/address/' + this._tempAddrId); } catch(e) {}
+        this._tempAddrId = null;
+      }
+
       this.clearCart();
       this.renderConfirmed(order);
       go(11);

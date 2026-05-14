@@ -49,16 +49,33 @@ const addressApi = {
       };
 
       // Clear previous error state
-      inputs[0].classList.remove('error');
-      const errDiv = inputs[0].nextElementSibling;
-      if (errDiv) errDiv.style.display = 'none';
+      for (let i = 0; i < 5; i++) {
+        inputs[i].classList.remove('error');
+        const errDiv = inputs[i].nextElementSibling;
+        if (errDiv) errDiv.style.display = 'none';
+      }
 
-      // Naive validation
+      let hasError = false;
+
+      // Phone validation
       if (!/^\d{11}$/.test(address.phoneNumber)) {
         inputs[0].classList.add('error');
+        const errDiv = inputs[0].nextElementSibling;
         if (errDiv) errDiv.style.display = 'block';
-        return;
+        hasError = true;
       }
+
+      // Required fields validation (Building, Apt, Floor, Street)
+      for (let i = 1; i <= 4; i++) {
+        if (!inputs[i].value.trim()) {
+          inputs[i].classList.add('error');
+          const errDiv = inputs[i].nextElementSibling;
+          if (errDiv) errDiv.style.display = 'block';
+          hasError = true;
+        }
+      }
+
+      if (hasError) return;
 
       // Just add a new one for now
       const res = await this.addAddress(address);

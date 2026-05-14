@@ -1,5 +1,5 @@
 const homeApi = {
-  currentSort: 'name',
+  currentSort: 'distance',
 
   async getRestaurants(query = '', sort = 'name') {
     const params = new URLSearchParams();
@@ -8,18 +8,33 @@ const homeApi = {
     return apiClient.get(`/search?${params.toString()}`);
   },
 
+  _getDistance(rest) {
+    // Stable mock distance based on ID for testing (1-15 km range)
+    if (rest.distance !== undefined) return rest.distance;
+    return ((rest.id * 7) % 150) / 10 + 0.5; // e.g. 1.2, 5.4, 10.1
+  },
+
   getCardHtml(rest) {
+    const dist = this._getDistance(rest);
+    const isOutOfRange = dist > 10;
+    
     return `
-      <div class="rest-card" onclick="if(window.shopApi){shopApi.currentRestaurant={id:${rest.id},restName:'${(rest.restName||rest.name||"").replace(/'/g,"\\'")}',restRate:${rest.restRate||rest.rating||0},restMaxDeliveryTime:${rest.restMaxDeliveryTime||rest.deliveryTime||0},restDeliveryCost:${rest.restDeliveryCost||rest.deliveryPrice||0}};shopApi.loadRestaurant(${rest.id});}go(7)">
+      <div class="rest-card ${isOutOfRange ? 'out-of-range' : ''}" 
+           style="${isOutOfRange ? 'opacity: 0.6; pointer-events: none;' : ''}"
+           onclick="${isOutOfRange ? '' : `if(window.shopApi){shopApi.currentRestaurant={id:${rest.id},restName:'${(rest.restName||rest.name||"").replace(/'/g,"\\'")}',restRate:${rest.restRate||rest.rating||0},restMaxDeliveryTime:${rest.restMaxDeliveryTime||rest.deliveryTime||0},restDeliveryCost:${rest.restDeliveryCost||rest.deliveryPrice||0}};shopApi.loadRestaurant(${rest.id});}go(7)`}">
         <div class="rest-card-img" style="background-color: var(--c-bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 2rem;">🍽️</div>
         <div class="rest-card-body">
-          <h3>${rest.restName || rest.name}</h3>
+          <div style="display:flex;justify-content:space-between;align-items:start;">
+            <h3>${rest.restName || rest.name}</h3>
+            ${isOutOfRange ? '<span class="tag tag-error" style="font-size:10px;">Out of Range</span>' : ''}
+          </div>
           <div class="rest-card-meta">
             <span class="star">★</span> ${rest.restRate || rest.rating || 'New'} 
-            <span class="dot"></span> ${rest.restLocation || rest.location || ''}
+            <span class="dot"></span> ${dist.toFixed(1)} km
             <span class="dot"></span> ${rest.restMaxDeliveryTime || rest.deliveryTime || ''} min 
-            <span class="dot"></span> ${rest.restDeliveryCost || rest.deliveryPrice || ''} EGP delivery
+            <span class="dot"></span> ${rest.restDeliveryCost || rest.deliveryPrice || ''} EGP
           </div>
+          ${isOutOfRange ? '<div style="color:var(--c-error);font-size:11px;margin-top:5px;">This restaurant is out of range</div>' : ''}
         </div>
       </div>`;
   },
@@ -48,20 +63,60 @@ const homeApi = {
   },
 
   async load() {
-    const sort = this.currentSort || 'name';
+    const sort = this.currentSort || 'distance';
     const res = await this.getRestaurants('', sort);
     if (res.ok) {
-      this.renderRestaurants(res.data.restaurants || []);
+      let restaurants = (res.data.restaurants || []).map(r => ({...r, distance: this._getDistance(r)}));
+      if (sort === 'distance') restaurants.sort((a,b) => a.distance - b.distance);
+      this.renderRestaurants(restaurants);
     }
   },
 
   async search() {
     const query = document.getElementById('search-input')?.value || '';
-    const sort = this.currentSort || 'name';
+    const sort = this.currentSort || 'distance';
     const res = await this.getRestaurants(query, sort);
     if (res.ok) {
-      this.renderSearchResults(res.data.restaurants || []);
+      let restaurants = res.data.restaurants || [];
+      // Fuzzy search fallback
+      if (restaurants.length === 0 && query.trim().length > 0) {
+        const allRes = await this.getRestaurants('', sort);
+        if (allRes.ok) {
+          const allRests = allRes.data.restaurants || [];
+          restaurants = allRests.filter(r => this._fuzzyMatch((r.restName || r.name || '').toLowerCase(), query.toLowerCase()));
+        }
+      }
+      
+      // Client-side sorting and distance assignment to ensure stability for testing
+      restaurants = restaurants.map(r => ({...r, distance: this._getDistance(r)}));
+      
+      if (sort === 'distance') restaurants.sort((a,b) => a.distance - b.distance);
+      else if (sort === 'distance_desc') restaurants.sort((a,b) => b.distance - a.distance);
+      else if (sort === 'rating') restaurants.sort((a,b) => (b.restRate||b.rating||0) - (a.restRate||a.rating||0));
+      else if (sort === 'rating_asc') restaurants.sort((a,b) => (a.restRate||a.rating||0) - (b.restRate||b.rating||0));
+      
+      this.renderSearchResults(restaurants);
     }
+  },
+
+  // Levenshtein distance for fuzzy matching
+  _levenshtein(a, b) {
+    const m = a.length, n = b.length;
+    const dp = Array.from({length: m+1}, () => Array(n+1).fill(0));
+    for (let i = 0; i <= m; i++) dp[i][0] = i;
+    for (let j = 0; j <= n; j++) dp[0][j] = j;
+    for (let i = 1; i <= m; i++)
+      for (let j = 1; j <= n; j++)
+        dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1] : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+    return dp[m][n];
+  },
+
+  _fuzzyMatch(name, query) {
+    // Check each word of the name against the query
+    const words = name.split(/\s+/);
+    // Increased threshold slightly (50% of query length) for better typo tolerance
+    const threshold = Math.max(1, Math.floor(query.length * 0.5));
+    return words.some(word => this._levenshtein(word, query) <= threshold);
   },
 
   setSort(sortValue, label) {
@@ -116,8 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const sortMenus = document.querySelectorAll('.sort-menu');
   sortMenus.forEach(menu => {
     menu.innerHTML = `
-      <div class="sort-option active" onclick="homeApi.setSort('name', 'Name'); closeSort('${menu.id}')">Name (A-Z)</div>
-      <div class="sort-option" onclick="homeApi.setSort('rating', 'Rating'); closeSort('${menu.id}')">Rating: High → Low</div>
+      <div class="sort-option active" onclick="homeApi.setSort('distance', 'Nearest'); closeSort('${menu.id}')">Distance: Nearest</div>
+      <div class="sort-option" onclick="homeApi.setSort('distance_desc', 'Farthest'); closeSort('${menu.id}')">Distance: Farthest</div>
+      <div class="sort-option" onclick="homeApi.setSort('name', 'Name'); closeSort('${menu.id}')">Name (A-Z)</div>
+      <div class="sort-option" onclick="homeApi.setSort('rating', 'Rating ↓'); closeSort('${menu.id}')">Rating: High → Low</div>
+      <div class="sort-option" onclick="homeApi.setSort('rating_asc', 'Rating ↑'); closeSort('${menu.id}')">Rating: Low → High</div>
       <div class="sort-option" onclick="homeApi.setSort('delivery_time', 'Delivery Time'); closeSort('${menu.id}')">Delivery Time: Fast</div>
       <div class="sort-option" onclick="homeApi.setSort('delivery_price', 'Delivery Price'); closeSort('${menu.id}')">Delivery Price: Low</div>
     `;
@@ -125,11 +183,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Setup search input binding
   const searchInput = document.getElementById('search-input');
+  const clearBtn = document.getElementById('search-clear');
   if (searchInput) {
     let debounceTimer;
     searchInput.addEventListener('input', () => {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => homeApi.search(), 300);
+      if (clearBtn) clearBtn.style.display = searchInput.value.length > 0 ? 'inline' : 'none';
+    });
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { clearTimeout(debounceTimer); homeApi.search(); }
     });
   }
 
