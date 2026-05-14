@@ -106,9 +106,30 @@ const adminApi = {
 
   async submitRestForm(e) {
     e.preventDefault();
+    const nameVal = document.getElementById('restName').value.trim();
+    // TC-ADM-11: Validate empty restaurant name
+    if (!nameVal) {
+      const nameInput = document.getElementById('restName');
+      nameInput.style.border = '2px solid var(--c-danger)';
+      let errEl = document.getElementById('restNameError');
+      if (!errEl) {
+        errEl = document.createElement('div');
+        errEl.id = 'restNameError';
+        errEl.style.cssText = 'color:var(--c-danger);font-size:12px;margin-top:4px;';
+        nameInput.parentNode.insertBefore(errEl, nameInput.nextSibling);
+      }
+      errEl.textContent = 'Restaurant Name is required.';
+      return;
+    }
+    // Clear previous errors
+    const nameInput = document.getElementById('restName');
+    nameInput.style.border = '';
+    const errEl = document.getElementById('restNameError');
+    if (errEl) errEl.remove();
+
     const data = {
-      restName: document.getElementById('restName').value,
-      name: document.getElementById('restName').value,
+      restName: nameVal,
+      name: nameVal,
       restLocation: document.getElementById('restLocation').value,
       location: document.getElementById('restLocation').value,
       restMaxDeliveryTime: Number(document.getElementById('restDeliveryTime').value),
@@ -135,21 +156,45 @@ const adminApi = {
   },
 
   // --- Offer Modal ---
-  openOfferModal(id = null) {
+  async openOfferModal(id = null) {
     this.editingOfferId = id;
     const modal = document.getElementById('adminOfferModal');
     const title = document.getElementById('adminOfferTitle');
+
+    // TC-ADM-08: Populate item dropdown with actual menu items from all restaurants
+    const itemSelect = document.getElementById('offItemId');
+    if (itemSelect && itemSelect.tagName === 'SELECT') {
+      itemSelect.innerHTML = '<option value="">-- Select an item --</option>';
+      for (const rest of this.restaurants) {
+        try {
+          const itemsRes = await apiClient.get(`/admin/restaurants/${rest.id}/items`);
+          if (itemsRes.ok) {
+            const items = itemsRes.data.items || [];
+            items.forEach(it => {
+              const opt = document.createElement('option');
+              opt.value = it.id;
+              opt.textContent = `${it.itemName} (${rest.restName}) — ${it.itemCost} EGP`;
+              itemSelect.appendChild(opt);
+            });
+          }
+        } catch(e) {}
+      }
+    }
+
     if (id) {
       const off = this.offers.find(o => o.id === id);
       title.textContent = 'Edit Promotion';
-      document.getElementById('offName').value = off.offerName;
+      document.getElementById('offName').value = off.offerName || '';
       document.getElementById('offItemId').value = off.menuItemId;
       document.getElementById('offDiscount').value = off.discountPercentage;
-      document.getElementById('offStart').value = off.startsAt;
-      document.getElementById('offEnd').value = off.expiresAt;
+      document.getElementById('offStart').value = off.startsAt || '';
+      document.getElementById('offEnd').value = off.expiresAt || '';
     } else {
       title.textContent = 'Add Promotion';
-      document.getElementById('adminOfferForm').reset();
+      document.getElementById('offName').value = '';
+      document.getElementById('offDiscount').value = '';
+      document.getElementById('offStart').value = '';
+      document.getElementById('offEnd').value = '';
     }
     modal.style.display = 'flex';
   },
@@ -164,11 +209,13 @@ const adminApi = {
       startsAt: document.getElementById('offStart').value,
       expiresAt: document.getElementById('offEnd').value,
     };
+    if (!data.menuItemId) { alert('Please select a menu item.'); return; }
+    if (!data.discountPercentage || data.discountPercentage < 1 || data.discountPercentage > 100) { alert('Discount must be between 1-100%.'); return; }
     let res;
     if (this.editingOfferId) res = await this.updateOffer(this.editingOfferId, data);
     else res = await this.addOffer(data);
     if (res.ok) { this.closeOfferModal(); this.load(); }
-    else alert('Error: ' + res.data.error);
+    else alert('Error: ' + (res.data?.error || 'Unknown error'));
   },
 
   async handleDeleteOffer(id) {
@@ -190,7 +237,7 @@ function injectAdminModals() {
       <div class="modal-box" style="width: 100%; max-width: 500px; padding: 24px; text-align: left;">
         <h3 id="adminRestTitle" style="margin-bottom:16px;">Add Restaurant</h3>
         <form id="adminRestForm">
-          <label class="field-label">Name</label><input class="field-input" id="restName" required>
+          <label class="field-label">Name</label><input class="field-input" id="restName">
           <label class="field-label">Location</label><input class="field-input" id="restLocation" required>
           <div style="display:flex;gap:10px;">
             <div style="flex:1"><label class="field-label">Delivery Time (min)</label><input type="number" class="field-input" id="restDeliveryTime" required></div>
@@ -215,7 +262,7 @@ function injectAdminModals() {
         <form id="adminOfferForm">
           <label class="field-label">Offer Name</label><input class="field-input" id="offName" required>
           <div style="display:flex;gap:10px;">
-            <div style="flex:1"><label class="field-label">Menu Item ID</label><input type="number" class="field-input" id="offItemId" required></div>
+            <div style="flex:1"><label class="field-label">Menu Item</label><select class="field-input" id="offItemId" required><option value="">Loading items...</option></select></div>
             <div style="flex:1"><label class="field-label">Discount %</label><input type="number" min="1" max="100" class="field-input" id="offDiscount" required></div>
           </div>
           <div style="display:flex;gap:10px;">

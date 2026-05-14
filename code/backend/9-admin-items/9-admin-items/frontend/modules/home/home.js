@@ -14,9 +14,24 @@ const homeApi = {
     return ((rest.id * 7) % 150) / 10 + 0.5; // e.g. 1.2, 5.4, 10.1
   },
 
+  _isRestaurantOpen(rest) {
+    if (!rest.openTime || !rest.closeTime) return true;
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    const [openH, openM] = rest.openTime.split(':').map(Number);
+    const [closeH, closeM] = rest.closeTime.split(':').map(Number);
+    const openMinutes = openH * 60 + openM;
+    const closeMinutes = closeH * 60 + closeM;
+    if (closeMinutes <= openMinutes) {
+      return currentMinutes >= openMinutes || currentMinutes < closeMinutes;
+    }
+    return currentMinutes >= openMinutes && currentMinutes < closeMinutes;
+  },
+
   getCardHtml(rest) {
     const dist = this._getDistance(rest);
     const isOutOfRange = dist > 10;
+    const isOpen = this._isRestaurantOpen(rest);
     
     return `
       <div class="rest-card ${isOutOfRange ? 'out-of-range' : ''}" 
@@ -26,7 +41,10 @@ const homeApi = {
         <div class="rest-card-body">
           <div style="display:flex;justify-content:space-between;align-items:start;">
             <h3>${rest.restName || rest.name}</h3>
-            ${isOutOfRange ? '<span class="tag tag-error" style="font-size:10px;">Out of Range</span>' : ''}
+            <div>
+              ${isOutOfRange ? '<span class="tag tag-error" style="font-size:10px;">Out of Range</span>' : ''}
+              ${!isOpen ? '<span class="tag tag-error" style="font-size:10px;">Closed</span>' : ''}
+            </div>
           </div>
           <div class="rest-card-meta">
             <span class="star">★</span> ${rest.restRate || rest.rating || 'New'} 

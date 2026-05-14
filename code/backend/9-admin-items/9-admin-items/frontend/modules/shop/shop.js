@@ -68,6 +68,21 @@ const shopApi = {
   },
 
   // ── S7: Restaurant Menu ──
+  _isRestaurantOpen(rest) {
+    // Compare current time against restaurant open/close window (ADM-FR-02)
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    const [openH, openM] = (rest.openTime || '00:00').split(':').map(Number);
+    const [closeH, closeM] = (rest.closeTime || '23:59').split(':').map(Number);
+    const openMinutes = openH * 60 + openM;
+    const closeMinutes = closeH * 60 + closeM;
+    // Handle overnight hours (e.g., 11:00 - 01:00)
+    if (closeMinutes <= openMinutes) {
+      return currentMinutes >= openMinutes || currentMinutes < closeMinutes;
+    }
+    return currentMinutes >= openMinutes && currentMinutes < closeMinutes;
+  },
+
   async loadRestaurant(restId) {
     const resRest = await apiClient.get(`/admin/restaurants`);
     if (!resRest.ok) return;
@@ -78,6 +93,8 @@ const shopApi = {
     const resItems = await apiClient.get(`/admin/restaurants/${restId}/items`);
     const items = resItems.ok ? (resItems.data.items || []) : [];
 
+    const isOpen = this._isRestaurantOpen(rest);
+
     const s7 = document.getElementById('s7');
     if (!s7) return;
     s7.innerHTML = `
@@ -86,13 +103,15 @@ const shopApi = {
         <div>
           <h2 style="font-size:24px;font-weight:700;margin-bottom:4px;">${rest.restName}</h2>
           <p style="font-size:13px;color:var(--c-text-secondary);"><span class="star">★</span> ${rest.restRate || 0} · ${rest.restMaxDeliveryTime} min · ${rest.restDeliveryCost} EGP delivery</p>
+          <span class="tag ${isOpen ? 'tag-success' : 'tag-error'}" style="margin-top:6px;display:inline-block;">${isOpen ? 'Open Now' : 'Closed'}</span>
         </div>
       </div>
+      ${!isOpen ? '<div style="background:var(--c-danger-bg, #fef2f2);border:1px solid var(--c-danger, #ef4444);border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:10px;"><span style="font-size:20px;">🚫</span><div><div style="font-weight:600;font-size:13px;color:var(--c-danger);">This restaurant is currently closed and not accepting orders.</div><div style="font-size:12px;color:var(--c-text-secondary);margin-top:2px;">Operating hours: '+rest.openTime+' – '+rest.closeTime+'</div></div></div>' : ''}
       <div class="divider"></div>
       <h3 class="section-heading" style="font-size:15px;">Menu items</h3>
       <div class="two-col" style="margin-top:14px;" id="menu-items-grid">
         ${items.length === 0 ? '<p style="color:var(--c-text-secondary)">No menu items yet.</p>' : items.map(item => `
-          <div class="menu-card">
+          <div class="menu-card" ${!isOpen ? 'style="opacity:0.6;"' : ''}>
             <div style="display:flex;gap:14px;">
               <div class="menu-card-img" style="background:var(--c-bg-tertiary);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🍔</div>
               <div style="flex:1;">
@@ -103,8 +122,8 @@ const shopApi = {
             </div>
             <div class="divider"></div>
             <div style="display:flex;align-items:center;justify-content:space-between;">
-              <div class="qty"><button class="qty-btn" onclick="shopApi.menuQty(${item.id},-1)">−</button><span class="qty-val" id="mqty-${item.id}">1</span><button class="qty-btn" onclick="shopApi.menuQty(${item.id},1)">+</button></div>
-              <button class="btn btn-primary btn-sm" onclick="shopApi.addMenuItem(${item.id})">Add to cart</button>
+              <div class="qty"><button class="qty-btn" onclick="shopApi.menuQty(${item.id},-1)" ${!isOpen ? 'disabled' : ''}>−</button><span class="qty-val" id="mqty-${item.id}">1</span><button class="qty-btn" onclick="shopApi.menuQty(${item.id},1)" ${!isOpen ? 'disabled' : ''}>+</button></div>
+              <button class="btn btn-primary btn-sm" onclick="shopApi.addMenuItem(${item.id})" ${!isOpen ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Add to cart</button>
             </div>
           </div>
         `).join('')}
