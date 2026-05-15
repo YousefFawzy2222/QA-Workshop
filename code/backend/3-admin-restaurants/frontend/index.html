@@ -140,18 +140,9 @@
         </div>
       </div>
       <div class="rest-grid">
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/burger.png)"></div>
-          <div class="rest-card-body"><h3>Burger Palace</h3><div class="rest-card-meta"><span class="star">★</span> 4.7 <span class="dot"></span> 2.3 km <span class="dot"></span> 25–35 min <span class="dot"></span> 15 EGP delivery</div></div>
-        </div>
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/pizza.png)"></div>
-          <div class="rest-card-body"><h3>Pizza Roma</h3><div class="rest-card-meta"><span class="star">★</span> 4.5 <span class="dot"></span> 3.1 km <span class="dot"></span> 30–45 min <span class="dot"></span> 20 EGP delivery</div></div>
-        </div>
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/sushi.png)"></div>
-          <div class="rest-card-body"><h3>Sushi Garden</h3><div class="rest-card-meta"><span class="star">★</span> 4.3 <span class="dot"></span> 5.0 km <span class="dot"></span> 40–55 min <span class="dot"></span> 25 EGP delivery</div></div>
-        </div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
       </div>
     </div>
 
@@ -177,18 +168,9 @@
         </div>
       </div>
       <div class="rest-grid">
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/burger.png)"></div>
-          <div class="rest-card-body"><h3>Burger Palace</h3><div class="rest-card-meta"><span class="star">★</span> 4.7 <span class="dot"></span> 2.3 km <span class="dot"></span> 25–35 min <span class="dot"></span> 15 EGP delivery</div></div>
-        </div>
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/pizza.png)"></div>
-          <div class="rest-card-body"><h3>Pizza Roma</h3><div class="rest-card-meta"><span class="star">★</span> 4.5 <span class="dot"></span> 3.1 km <span class="dot"></span> 30–45 min <span class="dot"></span> 20 EGP delivery</div></div>
-        </div>
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/sushi.png)"></div>
-          <div class="rest-card-body"><h3>Sushi Garden</h3><div class="rest-card-meta"><span class="star">★</span> 4.3 <span class="dot"></span> 5.0 km <span class="dot"></span> 40–55 min <span class="dot"></span> 25 EGP delivery</div></div>
-        </div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
       </div>
     </div>
 
@@ -227,15 +209,8 @@
         <span class="pill selected">By rating</span>
         <span class="pill">By distance</span>
       </div>
-      <div class="rest-grid">
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/burger.png)"></div>
-          <div class="rest-card-body"><h3>Burger Palace</h3><div class="rest-card-meta"><span class="star">★</span> 4.7 <span class="dot"></span> 2.3 km</div></div>
-        </div>
-        <div class="rest-card" style="opacity:.55;">
-          <div class="rest-card-img" style="background-image:url(images/sushi.png)"></div>
-          <div class="rest-card-body"><h3>Far Away Grill</h3><p style="font-size:12px;color:var(--c-danger);margin-top:4px;">Out of delivery range</p></div>
-        </div>
+      <div class="rest-grid" id="search-results">
+        <div class="empty-state" style="padding:40px;text-align:center;color:var(--c-text-secondary)">Type to search restaurants...</div>
       </div>
     </div>
 
@@ -247,35 +222,8 @@
         <div class="tab-item" onclick="go(3)">Restaurants</div>
         <div class="tab-item active">Offers</div>
       </div>
-      <div class="two-col">
-        <div class="offer-card">
-          <div class="offer-card-img" style="background-image:url(images/burger.png)"></div>
-          <div style="flex:1;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-              <span style="font-size:15px;font-weight:600;">Classic Burger</span>
-              <span class="tag tag-warn">−20% OFF</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-              <span style="font-size:13px;color:var(--c-text-muted);text-decoration:line-through;">85 EGP</span>
-              <span style="font-size:17px;font-weight:700;">68 EGP</span>
-            </div>
-            <span style="font-size:12px;color:var(--c-text-muted);">Burger Palace · Expires in 2 days</span>
-          </div>
-        </div>
-        <div class="offer-card">
-          <div class="offer-card-img" style="background-image:url(images/pizza.png)"></div>
-          <div style="flex:1;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-              <span style="font-size:15px;font-weight:600;">Pepperoni Pizza</span>
-              <span class="tag tag-danger">−15% OFF</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-              <span style="font-size:13px;color:var(--c-text-muted);text-decoration:line-through;">120 EGP</span>
-              <span style="font-size:17px;font-weight:700;">102 EGP</span>
-            </div>
-            <span style="font-size:12px;color:var(--c-text-muted);">Pizza Roma · Expires in 1 day</span>
-          </div>
-        </div>
+      <div class="two-col" id="offers-grid">
+        <div class="empty-state" style="padding:40px;text-align:center;color:var(--c-text-secondary)">Loading offers...</div>
       </div>
     </div>
 
@@ -289,7 +237,7 @@
 <div class="modal-overlay" id="cartModal">
   <div class="modal-box">
     <h3>Item added to cart!</h3>
-    <p class="subtitle">Classic Burger × 1</p>
+    <p class="subtitle" id="modal-item-info">Processing...</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
       <button class="btn btn-secondary btn-full" onclick="closeModal()">Continue ordering</button>
       <button class="btn btn-primary btn-full" onclick="closeModal();go(9);">View cart</button>
@@ -302,7 +250,7 @@
 <!-- home.js not yet -->
 <script src="modules/admin/admin.js?v=9"></script>
 <script src="modules/address/address.js?v=9"></script>
-<script src="core/screens.js?v=9"></script>
+<script src="core/screens.js?v=10"></script>
 <script src="core/app.js?v=9"></script>
 </body>
 </html>

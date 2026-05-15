@@ -29,7 +29,7 @@
             <mxPoint x="-70" y="-224" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="KDcuaWK3oWboEWxLvhvg-4" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Is phoneNumber null or empty" vertex="1">
+        <mxCell id="KDcuaWK3oWboEWxLvhvg-4" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="(Validation skipped for phoneNumber)" vertex="1">
           <mxGeometry height="160" width="185" x="312.5" y="170" as="geometry" />
         </mxCell>
         <mxCell id="KDcuaWK3oWboEWxLvhvg-9" edge="1" parent="1" source="KDcuaWK3oWboEWxLvhvg-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KDcuaWK3oWboEWxLvhvg-8" value="">
@@ -59,7 +59,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="KDcuaWK3oWboEWxLvhvg-8" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Is aptNumber &amp;lt;=0?" vertex="1">
+        <mxCell id="KDcuaWK3oWboEWxLvhvg-8" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="(Validation skipped for aptNumber)" vertex="1">
           <mxGeometry height="90" width="92.5" x="358.75" y="520" as="geometry" />
         </mxCell>
         <mxCell id="KDcuaWK3oWboEWxLvhvg-13" edge="1" parent="1" source="KDcuaWK3oWboEWxLvhvg-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KDcuaWK3oWboEWxLvhvg-12" value="">
@@ -70,7 +70,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="KDcuaWK3oWboEWxLvhvg-10" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Is floorNumber &amp;lt;=0?" vertex="1">
+        <mxCell id="KDcuaWK3oWboEWxLvhvg-10" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="(Validation skipped for floorNumber)" vertex="1">
           <mxGeometry height="80" width="80" x="365" y="660" as="geometry" />
         </mxCell>
         <mxCell id="KDcuaWK3oWboEWxLvhvg-19" edge="1" parent="1" source="KDcuaWK3oWboEWxLvhvg-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KDcuaWK3oWboEWxLvhvg-18" value="">
@@ -227,7 +227,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="KDcuaWK3oWboEWxLvhvg-60" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Is phoneNumber null or empty?" vertex="1">
+        <mxCell id="KDcuaWK3oWboEWxLvhvg-60" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="(Validation skipped for phoneNumber)?" vertex="1">
           <mxGeometry height="110" width="160" x="1330" y="180" as="geometry" />
         </mxCell>
         <mxCell id="KDcuaWK3oWboEWxLvhvg-65" edge="1" parent="1" source="KDcuaWK3oWboEWxLvhvg-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="KDcuaWK3oWboEWxLvhvg-64" value="">

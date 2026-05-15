@@ -140,18 +140,9 @@
         </div>
       </div>
       <div class="rest-grid">
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/burger.png)"></div>
-          <div class="rest-card-body"><h3>Burger Palace</h3><div class="rest-card-meta"><span class="star">★</span> 4.7 <span class="dot"></span> 2.3 km <span class="dot"></span> 25–35 min <span class="dot"></span> 15 EGP delivery</div></div>
-        </div>
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/pizza.png)"></div>
-          <div class="rest-card-body"><h3>Pizza Roma</h3><div class="rest-card-meta"><span class="star">★</span> 4.5 <span class="dot"></span> 3.1 km <span class="dot"></span> 30–45 min <span class="dot"></span> 20 EGP delivery</div></div>
-        </div>
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/sushi.png)"></div>
-          <div class="rest-card-body"><h3>Sushi Garden</h3><div class="rest-card-meta"><span class="star">★</span> 4.3 <span class="dot"></span> 5.0 km <span class="dot"></span> 40–55 min <span class="dot"></span> 25 EGP delivery</div></div>
-        </div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
       </div>
     </div>
 
@@ -177,18 +168,9 @@
         </div>
       </div>
       <div class="rest-grid">
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/burger.png)"></div>
-          <div class="rest-card-body"><h3>Burger Palace</h3><div class="rest-card-meta"><span class="star">★</span> 4.7 <span class="dot"></span> 2.3 km <span class="dot"></span> 25–35 min <span class="dot"></span> 15 EGP delivery</div></div>
-        </div>
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/pizza.png)"></div>
-          <div class="rest-card-body"><h3>Pizza Roma</h3><div class="rest-card-meta"><span class="star">★</span> 4.5 <span class="dot"></span> 3.1 km <span class="dot"></span> 30–45 min <span class="dot"></span> 20 EGP delivery</div></div>
-        </div>
-        <div class="rest-card" onclick="go(7)">
-          <div class="rest-card-img" style="background-image:url(images/sushi.png)"></div>
-          <div class="rest-card-body"><h3>Sushi Garden</h3><div class="rest-card-meta"><span class="star">★</span> 4.3 <span class="dot"></span> 5.0 km <span class="dot"></span> 40–55 min <span class="dot"></span> 25 EGP delivery</div></div>
-        </div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
       </div>
     </div>
 
@@ -245,7 +227,7 @@
 <div class="modal-overlay" id="cartModal">
   <div class="modal-box">
     <h3>Item added to cart!</h3>
-    <p class="subtitle">Classic Burger × 1</p>
+    <p class="subtitle" id="modal-item-info">Processing...</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
       <button class="btn btn-secondary btn-full" onclick="closeModal()">Continue ordering</button>
       <button class="btn btn-primary btn-full" onclick="closeModal();go(9);">View cart</button>
@@ -260,7 +242,7 @@
 <script src="modules/admin/admin.js?v=30"></script>
 <script src="modules/items/items.js?v=30"></script>
 <script src="modules/address/address.js?v=30"></script>
-<script src="core/screens.js?v=30"></script>
+<script src="core/screens.js?v=31"></script>
 <script src="core/app.js?v=30"></script>
 </body>
 </html>

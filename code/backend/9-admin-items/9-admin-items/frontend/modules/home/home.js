@@ -75,9 +75,9 @@ const homeApi = {
     const dist = this._getDistance(rest);
     const isOutOfRange = dist > 10;
     const isOpen = this._isRestaurantOpen(rest);
-    
+
     return `
-      <div class="rest-card ${isOutOfRange ? 'out-of-range' : ''}" 
+      <div class="rest-card ${isOutOfRange ? 'out-of-range' : ''}"
            style="${isOutOfRange ? 'opacity: 0.6; pointer-events: none;' : ''}"
            onclick="${isOutOfRange ? '' : `if(window.shopApi){shopApi.currentRestaurant={id:${rest.id},restName:'${(rest.restName||rest.name||"").replace(/'/g,"\\'")}',restRate:${rest.restRate||rest.rating||0},restMaxDeliveryTime:${rest.restMaxDeliveryTime||rest.deliveryTime||0},restDeliveryCost:${rest.restDeliveryCost||rest.deliveryPrice||0}};shopApi.loadRestaurant(${rest.id});}go(7)`}">
         <div class="rest-card-img" style="background-color: var(--c-bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 2rem;">🍽️</div>
@@ -90,9 +90,9 @@ const homeApi = {
             </div>
           </div>
           <div class="rest-card-meta">
-            <span class="star">★</span> ${rest.restRate || rest.rating || 'New'} 
+            <span class="star">★</span> ${rest.restRate || rest.rating || 'New'}
             <span class="dot"></span> ${dist.toFixed(1)} km
-            <span class="dot"></span> ${rest.restMaxDeliveryTime || rest.deliveryTime || ''} min 
+            <span class="dot"></span> ${rest.restMaxDeliveryTime || rest.deliveryTime || ''} min
             <span class="dot"></span> ${rest.restDeliveryCost || rest.deliveryPrice || ''} EGP
           </div>
           ${isOutOfRange ? '<div style="color:var(--c-error);font-size:11px;margin-top:5px;">This restaurant is out of range</div>' : ''}
@@ -124,6 +124,7 @@ const homeApi = {
   },
 
   async load() {
+    this.renderSkeletons();
     const sort = this.currentSort || 'distance';
     const res = await this.getRestaurants('', sort);
     if (res.ok) {
@@ -133,7 +134,21 @@ const homeApi = {
     }
   },
 
+  renderSkeletons() {
+    const skeleton = `
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>`;
+    const gridS3 = document.querySelector('#s3 .rest-grid');
+    const gridS18 = document.querySelector('#s18 .rest-grid');
+    if (gridS3) gridS3.innerHTML = skeleton;
+    if (gridS18) gridS18.innerHTML = skeleton;
+  },
+
   async search() {
+    const grid = document.getElementById('search-results');
+    if (grid) grid.innerHTML = `<div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>`;
+
     const query = document.getElementById('search-input')?.value || '';
     const sort = this.currentSort || 'distance';
     const res = await this.getRestaurants(query, sort);
@@ -147,15 +162,15 @@ const homeApi = {
           restaurants = allRests.filter(r => this._fuzzyMatch((r.restName || r.name || '').toLowerCase(), query.toLowerCase()));
         }
       }
-      
+
       // Client-side sorting and distance assignment to ensure stability for testing
       restaurants = restaurants.map(r => ({...r, distance: this._getDistance(r)}));
-      
+
       if (sort === 'distance') restaurants.sort((a,b) => a.distance - b.distance);
       else if (sort === 'distance_desc') restaurants.sort((a,b) => b.distance - a.distance);
       else if (sort === 'rating') restaurants.sort((a,b) => (b.restRate||b.rating||0) - (a.restRate||a.rating||0));
       else if (sort === 'rating_asc') restaurants.sort((a,b) => (a.restRate||a.rating||0) - (b.restRate||b.rating||0));
-      
+
       this.renderSearchResults(restaurants);
     }
   },
@@ -196,6 +211,7 @@ const homeApi = {
   async loadOffers() {
     const grid = document.getElementById('offers-grid');
     if (!grid) return;
+    grid.innerHTML = `<div class="skeleton-card" style="width:100%;"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div></div>`;
 
     const res = await apiClient.get('/offers/active');
     if (res.ok) {

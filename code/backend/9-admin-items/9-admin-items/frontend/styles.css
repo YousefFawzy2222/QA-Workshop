@@ -772,5 +772,39 @@ label.field-label {
 ::-webkit-scrollbar-thumb { background: var(--c-border); border-radius: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }
 
+/* ── SKELETON LOADERS ── */
+.skeleton {
+  background: linear-gradient(90deg, var(--c-surface-alt) 25%, var(--c-border-light) 50%, var(--c-surface-alt) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-card {
+  background: var(--c-surface);
+  border-radius: 20px;
+  border: 1px solid var(--c-border-light);
+  overflow: hidden;
+  padding-bottom: 18px;
+}
+.skeleton-img { height: 160px; width: 100%; margin-bottom: 14px; }
+.skeleton-title { height: 18px; width: 60%; margin: 0 18px 12px; }
+.skeleton-text { height: 12px; width: 80%; margin: 0 18px; }
+
+.skeleton-menu-item {
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--c-border-light);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+}
+.skeleton-menu-img { width: 80px; height: 80px; flex-shrink: 0; }
+.skeleton-menu-content { flex: 1; }
+
 /* ── HIDDEN HELPER ── */
 .hidden { display: none !important; }

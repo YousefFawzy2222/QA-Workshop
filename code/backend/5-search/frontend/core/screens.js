@@ -5,43 +5,16 @@ ph.innerHTML = `
 <!-- S7: RESTAURANT MENU -->
 <div class="screen" id="s7">
   <div style="display:flex;align-items:flex-end;gap:20px;margin-bottom:28px;">
-    <div style="width:120px;height:120px;background-size:cover;background-position:center;background-image:url(images/burger.png);border-radius:14px;"></div>
-    <div>
-      <h2 style="font-size:24px;font-weight:700;margin-bottom:4px;">Burger Palace</h2>
-      <p style="font-size:13px;color:var(--c-text-secondary);"><span class="star">★</span> 4.7 · 25–35 min · 15 EGP delivery</p>
+    <div class="skeleton" style="width:120px;height:120px;border-radius:14px;"></div>
+    <div style="flex:1;">
+      <div class="skeleton skeleton-title" style="margin-left:0;width:40%;"></div>
+      <div class="skeleton skeleton-text" style="margin-left:0;width:60%;"></div>
     </div>
-  </div>
-  <h3 class="section-heading" style="font-size:15px;">Special Offers</h3>
-  <div class="offer-card" style="border:1px dashed var(--c-warn);background:var(--c-warn-bg);margin-bottom:20px;">
-    <div class="offer-card-img" style="background-image:url(images/burger.png);"></div>
-    <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--c-warn);">20% OFF — Classic Burger</div><div style="font-size:12px;color:var(--c-warn);margin-top:4px;">Applied automatically at checkout</div></div>
   </div>
   <div class="divider"></div>
-  <h3 class="section-heading" style="font-size:15px;">Menu items</h3>
-  <div class="two-col" style="margin-top:14px;">
-    <div class="menu-card">
-      <div style="display:flex;gap:14px;">
-        <div class="menu-card-img" style="background-image:url(images/burger.png);"></div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:600;">Classic Burger</div><div style="font-size:12px;color:var(--c-text-secondary);margin:4px 0;">Beef patty, lettuce, tomato, pickles</div><div style="font-size:15px;font-weight:600;">85 EGP</div></div>
-      </div>
-      <div class="divider"></div>
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div class="qty"><button class="qty-btn">−</button><span class="qty-val">1</span><button class="qty-btn">+</button></div>
-        <button class="btn btn-primary btn-sm" onclick="go(8)">Add to cart</button>
-      </div>
-    </div>
-    <div class="menu-card" style="opacity:.65;">
-      <div style="display:flex;gap:14px;">
-        <div class="menu-card-img" style="background-image:url(images/combo.png);"></div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:600;">Combo Meal</div><div style="font-size:12px;color:var(--c-text-secondary);margin:4px 0;">Burger + fries + drink</div><div style="font-size:15px;font-weight:600;">120 EGP</div></div>
-      </div>
-      <div class="divider"></div>
-      <div class="alert alert-danger" style="margin-bottom:10px;">This restaurant is currently closed.</div>
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div class="qty"><button class="qty-btn">−</button><span class="qty-val">0</span><button class="qty-btn">+</button></div>
-        <button class="btn btn-disabled btn-sm">Unavailable</button>
-      </div>
-    </div>
+  <div class="two-col">
+    <div class="skeleton-menu-item"><div class="skeleton skeleton-menu-img"></div><div class="skeleton-menu-content"><div class="skeleton skeleton-title" style="margin-left:0;width:60%;"></div><div class="skeleton skeleton-text" style="margin-left:0;width:90%;"></div></div></div>
+    <div class="skeleton-menu-item"><div class="skeleton skeleton-menu-img"></div><div class="skeleton-menu-content"><div class="skeleton skeleton-title" style="margin-left:0;width:60%;"></div><div class="skeleton skeleton-text" style="margin-left:0;width:90%;"></div></div></div>
   </div>
 </div>
 

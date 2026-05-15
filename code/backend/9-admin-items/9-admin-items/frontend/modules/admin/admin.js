@@ -18,6 +18,7 @@ const adminApi = {
   editingOfferId: null,
 
   async load() {
+    this.renderSkeletons();
     try {
       const resRest = await this.getRestaurants();
       if (resRest.ok) {
@@ -35,6 +36,15 @@ const adminApi = {
         this.renderOffers();
       }
     } catch (err) { console.error('Failed to load offers:', err); }
+  },
+
+  renderSkeletons() {
+    const skeleton = `<tr><td colspan="4" style="text-align:center;padding:20px;"><div class="skeleton skeleton-text"></div></td></tr>`;
+    const tables = document.querySelectorAll('#s17 .data-table');
+    tables.forEach(t => {
+      const tb = t.querySelector('tbody');
+      if (tb) tb.innerHTML = skeleton;
+    });
   },
 
   renderRestaurants() {

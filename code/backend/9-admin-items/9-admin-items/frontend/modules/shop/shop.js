@@ -103,7 +103,26 @@ const shopApi = {
     return currentMinutes >= openMinutes && currentMinutes < closeMinutes;
   },
 
+  renderMenuSkeletons() {
+    const s7 = document.getElementById('s7');
+    if (!s7) return;
+    s7.innerHTML = `
+      <div style="display:flex;align-items:flex-end;gap:20px;margin-bottom:28px;">
+        <div class="skeleton" style="width:120px;height:120px;border-radius:14px;"></div>
+        <div style="flex:1;">
+          <div class="skeleton skeleton-title" style="margin-left:0;width:40%;"></div>
+          <div class="skeleton skeleton-text" style="margin-left:0;width:60%;"></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="two-col">
+        <div class="skeleton-menu-item"><div class="skeleton skeleton-menu-img"></div><div class="skeleton-menu-content"><div class="skeleton skeleton-title" style="margin-left:0;width:60%;"></div><div class="skeleton skeleton-text" style="margin-left:0;width:90%;"></div></div></div>
+        <div class="skeleton-menu-item"><div class="skeleton skeleton-menu-img"></div><div class="skeleton-menu-content"><div class="skeleton skeleton-title" style="margin-left:0;width:60%;"></div><div class="skeleton skeleton-text" style="margin-left:0;width:90%;"></div></div></div>
+      </div>`;
+  },
+
   async loadRestaurant(restId) {
+    this.renderMenuSkeletons();
     const resRest = await apiClient.get(`/admin/restaurants`);
     if (!resRest.ok) return;
     const rest = (resRest.data.restaurants || []).find(r => r.id === restId);
@@ -314,6 +333,16 @@ const shopApi = {
   async renderCheckout() {
     const s10 = document.getElementById('s10');
     if (!s10) return;
+    s10.innerHTML = `
+      <h2 class="section-heading">Checkout</h2>
+      <div class="checkout-grid">
+        <div>
+          <div class="card"><h3 style="font-size:14px;font-weight:600;margin-bottom:14px;">Delivery address</h3><div class="skeleton skeleton-text" style="width:80%;height:40px;"></div></div>
+          <div class="card"><h3 style="font-size:14px;font-weight:600;margin-bottom:14px;">Loyalty</h3><div class="skeleton skeleton-text" style="width:50%;"></div></div>
+        </div>
+        <div class="card"><h3 style="font-size:15px;font-weight:600;margin-bottom:14px;">Order summary</h3><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text"></div></div>
+      </div>`;
+
     const sub = this.getSubtotal();
     const delivery = this.currentRestaurant ? this.currentRestaurant.restDeliveryCost : 15;
     this._pointsCredit = 0;
