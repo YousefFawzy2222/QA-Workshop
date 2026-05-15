@@ -19,7 +19,7 @@
         <mxCell id="l4U_vOo0mDK3oLI6kbJh-8" edge="1" parent="1" source="l4U_vOo0mDK3oLI6kbJh-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="l4U_vOo0mDK3oLI6kbJh-7">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="l4U_vOo0mDK3oLI6kbJh-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="query restaurant within 10 km radius" vertex="1">
+        <mxCell id="l4U_vOo0mDK3oLI6kbJh-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="query all restaurants from DB" vertex="1">
           <mxGeometry height="60" width="215" x="267.5" y="360" as="geometry" />
         </mxCell>
         <mxCell id="l4U_vOo0mDK3oLI6kbJh-5" edge="1" parent="1" source="l4U_vOo0mDK3oLI6kbJh-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.533;entryY=0.167;entryDx=0;entryDy=0;entryPerimeter=0;" target="l4U_vOo0mDK3oLI6kbJh-3">
