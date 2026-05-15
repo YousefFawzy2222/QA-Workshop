@@ -30,14 +30,14 @@ public class AuthService {
                 return new AuthResult(false, "Invalid input", false);
             }
             if (!email.matches("^[\\w.+-]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-                return new AuthResult(false, "Invalid email format", false);
+                return new AuthResult(false, "Invalid email", false);
             }
             if (password.length() < 8) {
-                return new AuthResult(false, "Password must be at least 8 characters long", false);
+                return new AuthResult(false, "Invalid password", false);
             }
 
             if (userStore.emailExists(email)) {
-                return new AuthResult(false, "Email already in use", false);
+                return new AuthResult(false, "Invalid email", false);
             }
 
             String hash = BCrypt.hashpw(password, BCrypt.gensalt(10));
