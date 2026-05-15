@@ -33,8 +33,28 @@ public class OfferService {
         }
     }
 
+    private Offer enrichOffer(Offer offer) {
+        if (offer == null) return null;
+
+        Item item = itemStore.findById(offer.getMenuItemId());
+        if (item != null) {
+            offer.setItemName(item.getItemName());
+            if (offer.getOfferName() == null || offer.getOfferName().trim().isEmpty()) {
+                offer.setOfferName(item.getItemName() + " Offer");
+            }
+        }
+        return offer;
+    }
+
+    private List<Offer> enrichOffers(List<Offer> offers) {
+        for (Offer offer : offers) {
+            enrichOffer(offer);
+        }
+        return offers;
+    }
+
     public OfferResult getAllOffers() {
-        return new OfferResult(true, null, offerStore.findAll(), null);
+        return new OfferResult(true, null, enrichOffers(offerStore.findAll()), null);
     }
 
     public OfferResult getActiveOffers() {
@@ -42,7 +62,7 @@ public class OfferService {
         List<Offer> active = all.stream()
                 .filter(o -> !o.isExpired())
                 .collect(Collectors.toList());
-        return new OfferResult(true, null, active, null);
+        return new OfferResult(true, null, enrichOffers(active), null);
     }
 
     public OfferResult getOffersByMenuItem(int menuItemId) {
@@ -50,7 +70,7 @@ public class OfferService {
         if (item == null) {
             return new OfferResult(false, null, null, "Menu item not found");
         }
-        return new OfferResult(true, null, offerStore.findByMenuItem(menuItemId), null);
+        return new OfferResult(true, null, enrichOffers(offerStore.findByMenuItem(menuItemId)), null);
     }
 
     // Admin: createPromotion(Offers): void — from class diagram
@@ -80,7 +100,7 @@ public class OfferService {
         }
 
         Offer created = offerStore.add(data);
-        return new OfferResult(true, created, null, null);
+        return new OfferResult(true, enrichOffer(created), null, null);
     }
 
     // Admin: editPromotion(Offers): void — from class diagram
@@ -103,7 +123,7 @@ public class OfferService {
 
         offerStore.update(id, existing);
         Offer updated = offerStore.findById(id);
-        return new OfferResult(true, updated, null, null);
+        return new OfferResult(true, enrichOffer(updated), null, null);
     }
 
     public OfferResult deleteOffer(int id) {

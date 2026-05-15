@@ -62,7 +62,7 @@ public class OrderService {
         public int quantity;
     }
 
-    // Follows FA-FC-Checkout flowchart: placeOrder(): Order
+    // FA-FC-Checkout flowchart: placeOrder(): Order
     public OrderResult placeOrder(String userEmail, PlaceOrderRequest request) {
         try {
             // Step 1: Call validateAddress - is address valid?
@@ -193,13 +193,13 @@ public class OrderService {
         }
     }
 
-    // Follows class diagram Loyalty: isRedeemable(): boolean
+    // class diagram Loyalty: isRedeemable(): boolean
     // balance >= 1000 to enable
     private boolean isRedeemable(int pointsBalance) {
         return pointsBalance >= MIN_REDEEMABLE_POINTS;
     }
 
-    // Follows FA-FC-Checkout flowchart: applyPoints(): float
+    // FA-FC-Checkout flowchart: applyPoints(): float
     // Get Loyalty.pointsBalance -> is pointsBalance >= 1000?
     // Yes -> Call Loyalty.getEGPValue to convert points to EGP
     //        discount = points EGP value -> Return discount amount

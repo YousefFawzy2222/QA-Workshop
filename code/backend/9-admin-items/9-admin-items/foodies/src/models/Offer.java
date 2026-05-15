@@ -7,6 +7,7 @@ public class Offer {
     private int id;
     private int menuItemId;
     private String offerName;
+    private String itemName;
     private float discountPercentage;
     private float originalPrice;
     private float discountedPrice;
@@ -23,6 +24,9 @@ public class Offer {
 
     public String getOfferName() { return offerName; }
     public void setOfferName(String offerName) { this.offerName = offerName; }
+
+    public String getItemName() { return itemName; }
+    public void setItemName(String itemName) { this.itemName = itemName; }
 
     public float getDiscountPercentage() { return discountPercentage; }
     public void setDiscountPercentage(float discountPercentage) { this.discountPercentage = discountPercentage; }

@@ -27,7 +27,7 @@ public class SearchService {
         }
     }
 
-    // Follows FA-FC-Search flowchart: searchRestaurant(String): Restaurant[]
+    // FA-FC-Search flowchart: searchRestaurant(String): Restaurant[]
     public SearchResult searchRestaurant(String query, String sortCondition) {
         try {
             // Step 1: Is search string null?
@@ -66,14 +66,14 @@ public class SearchService {
         }
     }
 
-    // Follows FA-FC-Search flowchart: handleSyntaxError(String): Restaurant[]
+    // FA-FC-Search flowchart: handleSyntaxError(String): Restaurant[]
     // Receive raw search string -> convert to lowercase -> perform fuzzy matching -> return matched array
     public List<Restaurant> handleSyntaxError(String rawSearch) {
         String cleaned = rawSearch.trim().toLowerCase();
         return restaurantStore.findByNameFuzzy(cleaned);
     }
 
-    // Follows FA-FC-Search flowchart: selectSortCondition(String): void
+    // FA-FC-Search flowchart: selectSortCondition(String): void
     // This sets the sort condition and applies it
     private List<Restaurant> sortByCondition(List<Restaurant> restaurants, String condition) {
         List<Restaurant> sorted = new ArrayList<>(restaurants);
@@ -101,7 +101,7 @@ public class SearchService {
         return sorted;
     }
 
-    // Follows FA-FC-Search flowchart: applyTieBreaking(Restaurant[]): Restaurant[]
+    // FA-FC-Search flowchart: applyTieBreaking(Restaurant[]): Restaurant[]
     // Receive sorted array -> Are there tied restaurants with same sort value?
     // Yes -> Group tied restaurants -> Apply secondary sort by alphabetical order using restName
     // No -> Return array as is
