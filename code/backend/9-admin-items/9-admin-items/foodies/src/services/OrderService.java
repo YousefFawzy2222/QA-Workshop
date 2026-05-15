@@ -173,8 +173,8 @@ public class OrderService {
             orderItemStore.addAll(savedOrder.getId(), orderItems);
 
             // Step 5: Call Order.accruePoints
-            // pointsEarned = trunc(orderTotal * accrualRate)
-            int pointsEarned = (int) (total * ACCRUAL_RATE);
+            // pointsEarned = trunc(subTotal * accrualRate)
+            int pointsEarned = (int) (subTotal * ACCRUAL_RATE);
             savedOrder.setPointsEarned(pointsEarned);
 
             // Add pointsEarned to user's loyalty balance

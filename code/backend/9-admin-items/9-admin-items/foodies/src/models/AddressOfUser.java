@@ -37,11 +37,10 @@ public class AddressOfUser {
     }
 
     public void saveAddress() {
-        // Implementation typically calls AddressStore
     }
 
     public boolean validatePhoneNumber() {
         if (phoneNumber == null || phoneNumber.trim().isEmpty()) return false;
-        return phoneNumber.matches("^01[0-2,5]{1}[0-9]{8}$"); // Standard Egyptian mobile pattern or just digits
+        return phoneNumber.matches("^01[0-2,5]{1}[0-9]{8}$");
     }
 }
