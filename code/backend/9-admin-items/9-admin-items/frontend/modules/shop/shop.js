@@ -508,8 +508,84 @@ const shopApi = {
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;">
         <button class="btn btn-secondary btn-full" onclick="go(3)">Back to home</button>
-        <button class="btn btn-primary btn-full" onclick="go(16)">View loyalty</button>
+        <button class="btn btn-primary btn-full" onclick="go(15)">View orders</button>
       </div></div>`;
+  },
+
+  // ── S15: Order History ──
+  async getOrders() {
+    return apiClient.get('/orders');
+  },
+
+  async getOrderById(id) {
+    return apiClient.get(`/orders/${id}`);
+  },
+
+  async renderOrderHistory() {
+    const s15 = document.getElementById('s15');
+    if (!s15) return;
+    s15.innerHTML = `<h2 class="section-heading">Order history</h2><div class="card"><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text"></div></div>`;
+
+    const res = await this.getOrders();
+    if (!res.ok) {
+      s15.innerHTML = `<h2 class="section-heading">Order history</h2><div class="empty-state" style="padding:40px;text-align:center;color:var(--c-danger)">Failed to load orders</div>`;
+      return;
+    }
+
+    const orders = res.data.orders || [];
+    if (orders.length === 0) {
+      s15.innerHTML = `<h2 class="section-heading">Order history</h2><div class="empty-state" style="padding:60px;text-align:center;"><div style="font-size:42px;margin-bottom:12px;">🧾</div><h3 style="font-size:18px;margin-bottom:6px;">No orders yet</h3><p style="color:var(--c-text-secondary);">Orders you place will appear here.</p><button class="btn btn-primary" style="margin-top:16px;" onclick="go(3)">Browse restaurants</button></div>`;
+      return;
+    }
+
+    s15.innerHTML = `<h2 class="section-heading">Order history</h2>
+      <p class="section-sub">Review your previous orders and open the full backend order details.</p>
+      <div class="card" style="padding:0 18px;">
+        ${orders.map(order => `
+          <div class="menu-row">
+            <div>
+              <div style="font-size:13px;font-weight:600;">Order #${order.id}</div>
+              <div style="font-size:12px;color:var(--c-text-secondary);margin-top:2px;">${order.createdAt || 'Recently'} · ${order.status || 'placed'}</div>
+              <div style="font-size:12px;color:var(--c-text-muted);margin-top:2px;">${(order.totalPrice || 0).toFixed(0)} EGP</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="shopApi.renderOrderDetails(${order.id})">Details</button>
+          </div>
+        `).join('')}
+      </div>`;
+  },
+
+  async renderOrderDetails(orderId) {
+    const s15 = document.getElementById('s15');
+    if (!s15) return;
+    s15.innerHTML = `<h2 class="section-heading">Order details</h2><div class="card"><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text"></div></div>`;
+
+    const res = await this.getOrderById(orderId);
+    if (!res.ok || !res.data.order) {
+      s15.innerHTML = `<h2 class="section-heading">Order details</h2><div class="empty-state" style="padding:40px;text-align:center;color:var(--c-danger)">Failed to load order details</div><button class="btn btn-secondary" style="margin-top:16px;" onclick="shopApi.renderOrderHistory()">Back to orders</button>`;
+      return;
+    }
+
+    const order = res.data.order;
+    const items = order.items || [];
+    s15.innerHTML = `<h2 class="section-heading">Order #${order.id}</h2>
+      <p class="section-sub">${order.createdAt || 'Recently'} · ${order.status || 'placed'}</p>
+      <div class="two-col" style="align-items:start;">
+        <div class="card">
+          <h3 style="font-size:14px;font-weight:600;margin-bottom:14px;">Items</h3>
+          ${items.length ? `<table class="data-table"><thead><tr><th>Item ID</th><th>Qty</th><th>Unit price</th></tr></thead><tbody>${items.map(item => `
+            <tr><td>${item.menuItemId}</td><td>${item.quantity}</td><td>${(item.unitPrice || 0).toFixed(0)} EGP</td></tr>
+          `).join('')}</tbody></table>` : '<p style="color:var(--c-text-secondary);font-size:13px;">No items returned for this order.</p>'}
+        </div>
+        <div class="card">
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:14px;">Summary</h3>
+          <div class="row"><span style="font-size:13px;color:var(--c-text-secondary);">Subtotal</span><span>${(order.subTotal || 0).toFixed(0)} EGP</span></div>
+          <div class="row"><span style="font-size:13px;color:var(--c-text-secondary);">Delivery fee</span><span>${(order.deliveryFee || 0).toFixed(0)} EGP</span></div>
+          <div class="row"><span style="font-size:13px;color:var(--c-text-secondary);">Points redeemed</span><span>${order.pointsRedeemed || 0}</span></div>
+          <div class="divider"></div>
+          <div class="row"><span style="font-size:16px;font-weight:600;">Total</span><span style="font-size:16px;font-weight:600;">${(order.totalPrice || 0).toFixed(0)} EGP</span></div>
+          <button class="btn btn-secondary btn-full" style="margin-top:16px;" onclick="shopApi.renderOrderHistory()">Back to orders</button>
+        </div>
+      </div>`;
   },
 
   // ── S12: My Account ──
@@ -525,6 +601,7 @@ const shopApi = {
       <div class="card" style="display:flex;align-items:center;gap:14px;"><div style="width:52px;height:52px;border-radius:50%;background:var(--c-accent-light);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:18px;color:var(--c-accent);">${initial}</div><div><div style="font-size:16px;font-weight:600;">${name}</div><div style="font-size:13px;color:var(--c-text-secondary);">${email}</div></div></div>
       <div class="card" style="padding:0 18px;">
         <div class="menu-row" onclick="go(13)"><span style="font-size:13px;">Personal info</span><span style="color:var(--c-text-muted);">›</span></div>
+        <div class="menu-row" onclick="go(15)"><span style="font-size:13px;">Order history</span><span style="color:var(--c-text-muted);">›</span></div>
         <div class="menu-row" onclick="go(16)"><span style="font-size:13px;">Loyalty & rewards</span><span style="color:var(--c-text-muted);">›</span></div>
         ${isAdmin ? '<div class="menu-row" onclick="go(17)"><span style="font-size:13px;">Admin panel</span><span style="color:var(--c-text-muted);">›</span></div>' : ''}
         <div class="menu-row" onclick="shopApi.logout()"><span style="font-size:13px;color:var(--c-danger);">Log out</span><span style="color:var(--c-text-muted);">›</span></div>

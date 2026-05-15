@@ -3,6 +3,7 @@ const adminApi = {
   async getRestaurants() { return apiClient.get('/admin/restaurants'); },
   async addRestaurant(data) { return apiClient.post('/admin/restaurants', data); },
   async updateRestaurant(id, data) { return apiClient.put(`/admin/restaurants/${id}`, data); },
+  async updateRestaurantHours(id, data) { return apiClient.patch(`/admin/restaurants/${id}/hours`, data); },
   async deleteRestaurant(id) { return apiClient.delete(`/admin/restaurants/${id}`); },
 
   // --- Offers/Promotions API ---
@@ -151,8 +152,18 @@ const adminApi = {
       closeTime: document.getElementById('restCloseTime').value,
     };
     let res;
-    if (this.editingRestaurantId) res = await this.updateRestaurant(this.editingRestaurantId, data);
-    else res = await this.addRestaurant(data);
+    if (this.editingRestaurantId) {
+      const detailsData = { ...data };
+      delete detailsData.openTime;
+      delete detailsData.closeTime;
+      res = await this.updateRestaurant(this.editingRestaurantId, detailsData);
+      if (res.ok) {
+        res = await this.updateRestaurantHours(this.editingRestaurantId, {
+          openTime: data.openTime,
+          closeTime: data.closeTime
+        });
+      }
+    } else res = await this.addRestaurant(data);
     if (res.ok) { this.closeRestModal(); this.load(); }
     else alert('Error: ' + res.data.error);
   },
