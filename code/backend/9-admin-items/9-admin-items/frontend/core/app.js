@@ -18,6 +18,7 @@ const screenMeta = {
   12: { title: 'My account',      loc: false, cart: false, av: true  },
   13: { title: 'Personal info',   loc: false, cart: false, av: true  },
   14: { title: 'Saved address',   loc: false, cart: false, av: true  },
+  15: { title: 'Order history',    loc: false, cart: false, av: true  },
   16: { title: 'Loyalty & rewards', loc: false, cart: false, av: true },
   17: { title: 'Admin panel',     loc: false, cart: false, av: true  },
   18: { title: 'Home',            loc: true,  cart: false, av: true  }
@@ -27,7 +28,7 @@ const screenMeta = {
 const screenNavMap = {
   0: 0, 1: 1, 2: 1, 3: 2, 18: 2, 4: 2,
   5: 3, 6: 4, 7: 5, 8: 5, 9: 6, 10: 7,
-  11: 7, 12: 8, 13: 8, 14: 8, 16: 9, 17: 10
+  11: 7, 12: 8, 13: 8, 14: 8, 15: 8, 16: 9, 17: 10
 };
 
 function go(id) {
@@ -101,6 +102,8 @@ function go(id) {
     if (window.shopApi) shopApi.renderAccount();
   } else if (id === 13) {
     if (window.shopApi) shopApi.renderPersonalInfo();
+  } else if (id === 15) {
+    if (window.shopApi) shopApi.renderOrderHistory();
   } else if (id === 16) {
     if (window.shopApi) shopApi.renderLoyalty();
   } else if (id === 17) {

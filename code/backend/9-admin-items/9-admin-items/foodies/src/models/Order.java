@@ -63,7 +63,7 @@ public class Order {
     public List<OrderItem> getItems() { return items; }
     public void setItems(List<OrderItem> items) { this.items = items; }
 
-    // Follows FA-FC-Order flowchart: calculateTotal(): float
+    // FA-FC-Order flowchart: calculateTotal(): float
     // Initialize itemsTotal = 0
     // Loop through each item -> is item on discount? 
     //   Yes -> call item.getDiscountedPrice()
@@ -90,7 +90,7 @@ public class Order {
         return orderTotal;
     }
 
-    // Follows FA-FC-Order flowchart: accruePoints(): int
+    // FA-FC-Order flowchart: accruePoints(): int
     // Get orderTotal -> Calculate pointsEarned = trunc(orderTotal * accrualRate)
     // Set pointsEarned on Order -> Add pointsEarned to user's Loyalty.pointsBalance
     // Return pointsEarned

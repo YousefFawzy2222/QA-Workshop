@@ -228,6 +228,7 @@ const homeApi = {
               <span style="font-size:15px;font-weight:600;">${off.offerName || 'Special Offer'}</span>
               <span class="tag tag-warn">−${off.discountPercentage}% OFF</span>
             </div>
+            ${off.itemName ? `<div style="font-size:12px;color:var(--c-text-secondary);margin-bottom:6px;">Item: ${off.itemName}</div>` : ''}
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
               <span style="font-size:13px;color:var(--c-text-muted);text-decoration:line-through;">${off.originalPrice} EGP</span>
               <span style="font-size:17px;font-weight:700;">${off.discountedPrice.toFixed(0)} EGP</span>

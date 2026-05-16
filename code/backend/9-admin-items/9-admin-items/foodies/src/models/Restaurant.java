@@ -46,7 +46,7 @@ public class Restaurant {
     public boolean getIsOpen() { return isOpen; }
     public void setIsOpen(boolean isOpen) { this.isOpen = isOpen; }
 
-    // Follows the flowchart logic: FA-FC-Restaurant.drawio
+    // FA-FC-Restaurant
     public boolean checkOperatingStatus() {
         if (this.openTime == null || this.closeTime == null || this.openTime.isEmpty() || this.closeTime.isEmpty()) {
             this.isOpen = false;

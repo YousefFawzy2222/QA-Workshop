@@ -130,6 +130,15 @@ ph.innerHTML = `
   </div>
 </div>
 
+<!-- S15: ORDER HISTORY -->
+<div class="screen" id="s15">
+  <h2 class="section-heading">Order history</h2>
+  <div class="card">
+    <div class="skeleton skeleton-text"></div>
+    <div class="skeleton skeleton-text"></div>
+  </div>
+</div>
+
 <!-- S16: LOYALTY -->
 <div class="screen" id="s16">
   <h2 class="section-heading">Loyalty & rewards</h2>
